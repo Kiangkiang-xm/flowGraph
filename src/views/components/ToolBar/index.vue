@@ -161,6 +161,7 @@ export default defineComponent({
           break
         case 'toJSON':
           console.log(graph.toJSON())
+          // graph.fromJSON({cells:[graph.toJSON().cells[0],graph.toJSON().cells[1]]})
           break
         default:
           break

@@ -15,6 +15,8 @@ export function nodeOpt(id: any, globalGridAttr: any){
         globalGridAttr.nodeFill = getHexColor(cell.attr('body/fill'))
         globalGridAttr.nodeFontSize = cell.attr('text/fontSize')
         globalGridAttr.nodeColor = getHexColor(cell.attr('text/fill'))
+        globalGridAttr.nodeUsers = cell.attr('approve/users')
+
     }
     return curCel;
 }

@@ -40,6 +40,14 @@
         </a-col>
       </a-row>
     </a-tab-pane>
+    <a-tab-pane tab="属性" key="3">
+      <a-row align="middle">
+        <a-col :span=8>Assign Users</a-col>
+        <a-col :span=14>
+          <a-input :value="globalGridAttr.nodeUsers" style="width: 100%" @change="onUsersChange"/>
+        </a-col>
+      </a-row>
+    </a-tab-pane>
   </a-tabs>
 </template>
 
@@ -89,6 +97,12 @@ export default defineComponent({
       curCel?.attr('text/fill', val)
     }
 
+    const onUsersChange = (e: any) =>{
+      const val = e.target.value
+      globalGridAttr.nodeUsers = val
+      curCel?.attr('approve/users', val)
+    }
+
     return{
       globalGridAttr,
       onStrokeChange,
@@ -96,7 +110,7 @@ export default defineComponent({
       onFillChange,
       onFontSizeChange,
       onColorChange,
-
+      onUsersChange
     }
   }
 })

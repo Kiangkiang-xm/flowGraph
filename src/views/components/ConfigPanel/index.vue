@@ -12,7 +12,7 @@ import ConfigNode from './ConfigNode/index.vue'
 import ConfigEdge from './ConfigEdge/index.vue'
 import FlowGraph from '@/views/graph'
 import './index.less'
-import { defineComponent, ref, onUpdated, provide } from "vue";
+import { defineComponent, ref, provide } from "vue";
 import { globalGridAttr } from '@/models/global'
 
 export default defineComponent({

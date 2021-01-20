@@ -19,13 +19,15 @@ export const globalGridAttr = reactive({
     stroke: '#5F95FF',
     strokeWidth: 1,
     connector: 'normal',
+    label:'',
 
 
     nodeStroke: '#5F95FF',
     nodeStrokeWidth: 1,
     nodeFill: 'rgba(95,149,255,0.05)',
     nodeFontSize: 12,
-    nodeColor: 'rgba(0,0,0,0.85)'
+    nodeColor: 'rgba(0,0,0,0.85)',
+    nodeUsers:''
 
 })
 

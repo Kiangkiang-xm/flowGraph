@@ -27,6 +27,12 @@
           </a-select>
         </a-col>
       </a-row>
+      <a-row align="middle">
+        <a-col :span=8>Label</a-col>
+        <a-col :span=14>
+          <a-input :value="globalGridAttr.label" style="width: 100%" @change="onLabelChange"/>
+        </a-col>
+      </a-row>
     </a-tab-pane>
   </a-tabs>
 </template>
@@ -59,6 +65,7 @@ export default defineComponent({
       globalGridAttr.stroke = cell.attr('line/stroke')
       globalGridAttr.strokeWidth = cell.attr('line/strokeWidth')
       globalGridAttr.connector = connector.name
+      globalGridAttr.label = (cell.getLabels()[0]?.attrs as any).text.text||''
     },{
       immediate:false,
       deep:false
@@ -83,11 +90,40 @@ export default defineComponent({
       curCell?.setConnector(val)
     }
 
+    const onLabelChange = (e: any) =>{
+      const val = e.target.value
+      globalGridAttr.label = val
+      curCell.setLabels([
+        {
+          attrs: {
+            text: {
+              text: val,
+            },
+          },
+          position: {
+            distance: 0.50,
+          },
+        }
+      ])
+      // curCell.appendLabel({
+      //   attrs: {
+      //     text: {
+      //       text: val,
+      //     },
+      //   },
+      //   position: {
+      //     distance: 0.25,
+      //   },
+      // })
+    }
+
     return{
+      globalGridAttr,
       onStrokeWidthChange,
       onStrokeChange,
       onConnectorChange,
-      globalGridAttr
+      onLabelChange
+
     }
   }
 })
