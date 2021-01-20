@@ -72,6 +72,15 @@
       </a-button>
     </a-tooltip>
 
+    <a-tooltip placement="bottom">
+      <template #title>
+        <span>打印 (Cmd + P)</span>
+      </template>
+      <a-button name="toJSON" @click="handleClick" class="item-space" size="small">
+        toJSON
+      </a-button>
+    </a-tooltip>
+
   </div>
 </template>
 
@@ -150,6 +159,9 @@ export default defineComponent({
         case 'paste':
           paste()
           break
+        case 'toJSON':
+          console.log(graph.toJSON())
+          break
         default:
           break
       }
@@ -160,35 +172,35 @@ export default defineComponent({
       canUndo.value = history.canUndo()
       canRedo.value = history.canRedo()
     })
-    graph.bindKey('meta+z', () => {
+    graph.bindKey('ctrl+z', () => {
       if (history.canUndo()) {
         history.undo()
       }
       return false
     })
-    graph.bindKey('meta+shift+z', () => {
+    graph.bindKey('ctrl+shift+z', () => {
       if (history.canRedo()) {
         history.redo()
       }
       return false
     })
-    graph.bindKey('meta+d', () => {
+    graph.bindKey('ctrl+d', () => {
       graph.clearCells()
       return false
     })
-    graph.bindKey('meta+s', () => {
+    graph.bindKey('ctrl+s', () => {
       graph.toPNG((datauri: string) => {
         DataUri.downloadDataUri(datauri, 'chart.png')
       })
       return false
     })
-    graph.bindKey('meta+p', () => {
+    graph.bindKey('ctrl+p', () => {
       graph.printPreview()
       return false
     })
-    graph.bindKey('meta+c', copy)
-    graph.bindKey('meta+v', paste)
-    graph.bindKey('meta+x', cut)
+    graph.bindKey('ctrl+c', copy)
+    graph.bindKey('ctrl+v', paste)
+    graph.bindKey('ctrl+x', cut)
 
 
     return {

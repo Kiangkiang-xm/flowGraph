@@ -1,4 +1,4 @@
-import {reactive} from "vue";
+import { reactive } from "vue";
 
 export const globalGridAttr = reactive({
     type: 'mesh',
@@ -16,9 +16,9 @@ export const globalGridAttr = reactive({
     bgSize: JSON.stringify({ width: 150, height: 150 }),
     opacity: 0.1,
 
-    stroke:'#5F95FF',
-    strokeWidth:1,
-    connector:'normal',
+    stroke: '#5F95FF',
+    strokeWidth: 1,
+    connector: 'normal',
 
 
     nodeStroke: '#5F95FF',

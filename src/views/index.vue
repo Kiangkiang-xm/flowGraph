@@ -39,7 +39,7 @@ import ToolBar from './components/ToolBar/index.vue'
 import ConfigPanel from './components/ConfigPanel/index.vue'
 const getContainerSize = () => {
   return {
-    width: document.body.offsetWidth - 581,
+    width: document.body.offsetWidth - 590,
     height: document.body.offsetHeight - 110,
   }
 }

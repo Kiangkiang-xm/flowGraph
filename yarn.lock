@@ -35,10 +35,10 @@
     "@types/lodash" "^4.14.165"
     lodash "^4.17.15"
 
-"@antv/x6@^1.11.1":
-  version "1.11.1"
-  resolved "https://registry.npm.taobao.org/@antv/x6/download/@antv/x6-1.11.1.tgz#6f8806a7a1f084d4c8fa56802b6e8dc1a9871273"
-  integrity sha1-b4gGp6HwhNTI+laAK26NwamHEnM=
+"@antv/x6@^1.12.2":
+  version "1.12.2"
+  resolved "https://registry.npm.taobao.org/@antv/x6/download/@antv/x6-1.12.2.tgz#43761d671a210ab08674524e61c5954dabfc613d"
+  integrity sha1-Q3YdZxohCrCGdFJOYcWVTav8YT0=
   dependencies:
     csstype "^3.0.3"
     jquery "^3.5.1"

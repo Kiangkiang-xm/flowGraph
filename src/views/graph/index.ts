@@ -27,6 +27,20 @@ export default class FlowGraph {
           },
         ],
       },
+
+      scroller: {
+        enabled: true,
+        pageVisible: true,
+        pageBreak: true,
+        pannable: true,
+      },
+      mousewheel: {
+        enabled: true,
+        modifiers: ['ctrl', 'meta'],
+        minScale: 0.5,
+        maxScale: 2,
+      },
+
       selecting: {
         enabled: true,
         multiple: true,
