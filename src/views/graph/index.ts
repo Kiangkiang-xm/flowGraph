@@ -32,7 +32,7 @@ export default class FlowGraph {
         enabled: true,
         pageVisible: true,
         pageBreak: true,
-        pannable: true,
+        pannable: false,
       },
       mousewheel: {
         enabled: true,
@@ -338,8 +338,8 @@ export default class FlowGraph {
         }
       })
     })
-
-    graph.bindKey('backspace', () => {
+    // backspace
+    graph.bindKey('delete', () => {
       const cells = graph.getSelectedCells()
       if (cells.length) {
         graph.removeCells(cells)
