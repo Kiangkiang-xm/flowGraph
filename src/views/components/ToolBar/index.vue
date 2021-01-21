@@ -56,10 +56,19 @@
 
     <a-tooltip placement="bottom">
       <template #title>
-        <span>保存 (Cmd + S)</span>
+        <span>保存PNG (Cmd + S)</span>
       </template>
-      <a-button name="save" @click="handleClick" class="item-space" size="small">
-        save
+      <a-button name="savePNG" @click="handleClick" class="item-space" size="small">
+        savePNG
+      </a-button>
+    </a-tooltip>
+
+    <a-tooltip placement="bottom">
+      <template #title>
+        <span>保存SVG (Cmd + S)</span>
+      </template>
+      <a-button name="saveSVG" @click="handleClick" class="item-space" size="small">
+        saveSVG
       </a-button>
     </a-tooltip>
 
@@ -74,7 +83,7 @@
 
     <a-tooltip placement="bottom">
       <template #title>
-        <span>打印 (Cmd + P)</span>
+        <span>导出 (Cmd + P)</span>
       </template>
       <a-button name="toJSON" @click="handleClick" class="item-space" size="small">
         toJSON
@@ -142,9 +151,25 @@ export default defineComponent({
         case 'delete':
           graph.clearCells()
           break
-        case 'save':
+        case 'savePNG':
           graph.toPNG((dataUri: string) => {
-            DataUri.downloadDataUri(dataUri, 'chart.png')
+            // 下载
+            DataUri.downloadDataUri(dataUri, 'chartx.png')
+          }, {
+            backgroundColor:'white',
+            padding: {
+              top: 20,
+              right: 30,
+              bottom: 40,
+              left: 50,
+            },
+            quality:1
+          })
+          break
+        case 'saveSVG':
+          graph.toSVG((dataUri: string) => {
+            // 下载
+            DataUri.downloadDataUri(DataUri.svgToDataUrl(dataUri), 'chart.svg')
           })
           break
         case 'print':
