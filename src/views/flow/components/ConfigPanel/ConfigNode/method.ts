@@ -1,5 +1,5 @@
-import FlowGraph from "@/views/graph";
-import {getHexColor} from "@/models/global";
+import FlowGraph from "@/views/flow/graph";
+import {getHexColor} from "@/views/flow/models/global";
 
 export function nodeOpt(id: any, globalGridAttr: any){
     let curCel: any = null;

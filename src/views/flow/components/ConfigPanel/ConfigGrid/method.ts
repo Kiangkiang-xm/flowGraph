@@ -1,4 +1,4 @@
-import FlowGraph from "@/views/graph";
+import FlowGraph from "@/views/flow/graph";
 
 export function gridOpt(globalGridAttr: any){
     let options
