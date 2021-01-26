@@ -43,6 +43,7 @@ export default defineComponent({
     })
 
     const handleSubmit  = (e: Event)=> {
+      console.log(e)
       console.log(loginForm);
     }
     return{

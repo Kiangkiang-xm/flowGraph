@@ -8,7 +8,7 @@ export const FlowChartRect = Graph.registerNode('flow-chart-rect', {
     body: {
       stroke: '#5F95FF',
       strokeWidth: 1,
-      fill: 'rgba(95,149,255,0.05)',
+      fill: '#ffffff',
     },
     fo: {
       refWidth: '100%',
@@ -36,7 +36,7 @@ export const FlowChartRect = Graph.registerNode('flow-chart-rect', {
     },
     text: {
       fontSize: 12,
-      fill: 'rgba(0,0,0,0.85)',
+      fill: '#080808',
     },
   },
   markup: [
