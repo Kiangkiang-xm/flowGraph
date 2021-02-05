@@ -4,7 +4,7 @@
       <a-card title="欢迎登陆CX工作流设计器" style="width: 100%;height: 100%">
         <a-form  :model="loginForm" @submit="handleSubmit"><!--@submit.native.prevent-->
           <a-form-item>
-            <a-input v-model:value="loginForm.username" placeholder="Username" style="width: 350px" >
+            <a-input v-model:value="loginForm.account" placeholder="account" style="width: 350px" >
               <template #prefix><UserOutlined style="color:rgba(0,0,0,.25)"/></template>
             </a-input>
           </a-form-item>
@@ -14,7 +14,7 @@
             </a-input>
           </a-form-item>
           <a-form-item>
-            <a-button type="primary" html-type="submit" :disabled="loginForm.username === '' || loginForm.password === ''" style="width: 350px">
+            <a-button type="primary" html-type="submit" :disabled="loginForm.account === '' || loginForm.password === ''" style="width: 350px">
               登陆
             </a-button>
           </a-form-item>
@@ -27,8 +27,11 @@
 <script lang="ts">
 import '../../reset.less'
 import '../../global.css'
-import {defineComponent, reactive} from "vue";
+import { defineComponent, reactive } from "vue";
 import { UserOutlined, LockOutlined } from '@ant-design/icons-vue';
+import { login } from '@/api/modular/auth'
+
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
   name: "index",
@@ -38,13 +41,23 @@ export default defineComponent({
   },
   setup(){
     const loginForm = reactive({
-      username: '',
+      account: '',
       password:''
     })
+    const router = useRouter()
 
     const handleSubmit  = (e: Event)=> {
-      console.log(e)
-      console.log(loginForm);
+      const param =  {
+        account: loginForm.account,
+        password: loginForm.password
+      }
+      login(param).then(response => {
+        const res: any = response.data
+        if(res.code === 200){
+          localStorage.setItem('ACCESS_TOKEN', res.data);
+          router.push("/flow")
+        }
+      })
     }
     return{
       loginForm,

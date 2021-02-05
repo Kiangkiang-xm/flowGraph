@@ -9,11 +9,12 @@
   },
   "dependencies": {
     "@ant-design/icons-vue": "^5.1.9",
-    "@antv/x6": "^1.12.16",
+    "@antv/x6": "^1.12.28",
     "ant-design-vue": "^2.0.0-rc.8",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "vue": "^3.0.0",
+    "vue-axios": "^3.2.3",
     "vue-class-component": "^8.0.0-0",
     "vue-router": "^4.0.0-0",
     "vuex": "^4.0.0-0"

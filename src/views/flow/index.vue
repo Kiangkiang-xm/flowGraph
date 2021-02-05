@@ -37,6 +37,7 @@ import './index.less'
 import FlowGraph from './graph'
 import ToolBar from './components/ToolBar/index.vue'
 import ConfigPanel from './components/ConfigPanel/index.vue'
+
 const getContainerSize = () => {
   return {
     width: document.body.offsetWidth - 590,
@@ -63,6 +64,7 @@ export default defineComponent({
       return () => {
         window.removeEventListener('resize', resizeFn)
       }
+
     }
     onMounted(() => {
       initGraph()

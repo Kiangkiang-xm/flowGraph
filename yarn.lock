@@ -35,10 +35,10 @@
     "@types/lodash" "^4.14.165"
     lodash "^4.17.15"
 
-"@antv/x6@^1.12.16":
-  version "1.12.16"
-  resolved "https://registry.npm.taobao.org/@antv/x6/download/@antv/x6-1.12.16.tgz#84d8f3b03b86c4322319a6f5d585284d0b7dbe36"
-  integrity sha1-hNjzsDuGxDIjGab11YUoTQt9vjY=
+"@antv/x6@^1.12.28":
+  version "1.12.28"
+  resolved "https://registry.npm.taobao.org/@antv/x6/download/@antv/x6-1.12.28.tgz#e12a0f771d879cdcdf40368c1fe17f4837412668"
+  integrity sha1-4SoPdx2HnNzfQDaMH+F/SDdBJmg=
   dependencies:
     csstype "^3.0.3"
     jquery "^3.5.1"
@@ -8740,6 +8740,11 @@ vm-browserify@^1.0.1:
   version "1.1.2"
   resolved "https://registry.npm.taobao.org/vm-browserify/download/vm-browserify-1.1.2.tgz#78641c488b8e6ca91a75f511e7a3b32a86e5dda0"
   integrity sha1-eGQcSIuObKkadfUR56OzKobl3aA=
+
+vue-axios@^3.2.3:
+  version "3.2.3"
+  resolved "https://registry.npm.taobao.org/vue-axios/download/vue-axios-3.2.3.tgz?cache=0&sync_timestamp=1611846529577&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fvue-axios%2Fdownload%2Fvue-axios-3.2.3.tgz#b50d3f082a13a646aa47643398c261623082f1de"
+  integrity sha1-tQ0/CCoTpkaqR2QzmMJhYjCC8d4=
 
 vue-class-component@^8.0.0-0:
   version "8.0.0-rc.1"
