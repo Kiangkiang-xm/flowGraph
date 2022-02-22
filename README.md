@@ -1,5 +1,8 @@
 # cx-flow-x6
 
+流程图地址：http://localhost:88/flow
+
+
 ## Project setup
 ```
 yarn install
