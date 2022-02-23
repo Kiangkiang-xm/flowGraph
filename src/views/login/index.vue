@@ -41,23 +41,24 @@ export default defineComponent({
   },
   setup(){
     const loginForm = reactive({
-      account: '',
-      password:''
+      account: 'superAdmin',
+      password:'123456'
     })
     const router = useRouter()
 
     const handleSubmit  = (e: Event)=> {
-      const param =  {
-        account: loginForm.account,
-        password: loginForm.password
-      }
-      login(param).then(response => {
-        const res: any = response.data
-        if(res.code === 200){
-          localStorage.setItem('ACCESS_TOKEN', res.data);
-          router.push("/flow")
-        }
-      })
+      router.push("/tabs")
+      // const param =  {
+      //   account: loginForm.account,
+      //   password: loginForm.password
+      // }
+      // login(param).then(response => {
+      //   const res: any = response.data
+      //   if(res.code === 200){
+      //     localStorage.setItem('ACCESS_TOKEN', res.data);
+      //     router.push("/flow")
+      //   }
+      // })
     }
     return{
       loginForm,
