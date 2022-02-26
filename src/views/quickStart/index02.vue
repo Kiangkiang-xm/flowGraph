@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, onMounted, reactive} from "vue";
+import {defineComponent, onMounted} from "vue";
 import { Graph } from '@antv/x6';
 export default defineComponent({
   setup() {

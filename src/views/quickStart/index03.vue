@@ -4,7 +4,7 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, onMounted, reactive} from "vue";
+import {defineComponent, onMounted} from "vue";
 import { Graph } from '@antv/x6';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const insertCss = require('insert-css');

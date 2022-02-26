@@ -29,7 +29,7 @@ import '../../reset.less'
 import '../../global.css'
 import { defineComponent, reactive } from "vue";
 import { UserOutlined, LockOutlined } from '@ant-design/icons-vue';
-import { login } from '@/api/modular/auth'
+// import { login } from '@/api/modular/auth'
 
 import { useRouter } from 'vue-router'
 
@@ -46,8 +46,9 @@ export default defineComponent({
     })
     const router = useRouter()
 
-    const handleSubmit  = (e: Event)=> {
+    const handleSubmit  = (/*e: Event*/)=> {
       router.push("/tabs")
+
       // const param =  {
       //   account: loginForm.account,
       //   password: loginForm.password
