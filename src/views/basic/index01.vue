@@ -1,24 +1,26 @@
 <template>
-  <div>
-    <a-button @click="isPan">画布是否可以平移</a-button>
-    <a-button @click="enablePanning">启用画布平移</a-button>
-    <a-button @click="disablePanning">禁止画布平移</a-button>
-    <a-button @click="togglePanning">切换画布平移状态</a-button>
-    <a-button @click="centerContent">将画布内容中心与视口中心对齐</a-button>
-    <a-button @click="toSVG">导出svg</a-button>
+  <a-button @click="isPan">画布是否可以平移</a-button>
+  <a-button @click="enablePanning">启用画布平移</a-button>
+  <a-button @click="disablePanning">禁止画布平移</a-button>
+  <a-button @click="togglePanning">切换画布平移状态</a-button>
+  <a-button @click="zoom">获取缩放级别</a-button>
+  <a-button @click="zoomAdd">在原来缩放级别上增加 0.2</a-button>
+  <a-button @click="zoomReduce">在原来缩放级别上减少 0.2</a-button>
 
-    <a-button @click="toPNG">导出png</a-button>
+  <a-button @click="centerContent">将画布内容中心与视口中心对齐</a-button>
 
-    <a-button @click="dispose">销毁画布</a-button>
+  <a-button @click="toSVG">导出svg</a-button>
+  <a-button @click="toPNG">导出png</a-button>
 
-    <div id="container"></div>
-  </div>
+  <a-button @click="dispose">销毁画布</a-button>
+
+
+  <div id="container"></div>
 </template>
 
 <script lang="ts">
 import {defineComponent, onMounted} from "vue";
 import { Graph, DataUri } from '@antv/x6';
-
 export default defineComponent({
   setup() {
     const data = {
@@ -61,16 +63,22 @@ export default defineComponent({
           size: 10,      // 网格大小 10px
           visible: true, // 渲染网格背景
         },
-        // 第一种写法：画布平移效果
         // panning: true,
-        // 第二种写法：画布平移效果
         panning: {
           enabled: true,
-          // (shift+鼠标左键)：参数可设置：shift、ctrl、alt
-          modifiers: 'shift',
-          // 设置触发画布拖拽的行为，支持 leftMouseDown、 rightMouseDown、mouseWheel，默认为 ['leftMouseDown']
-          eventTypes: ['leftMouseDown', 'rightMouseDown', 'mouseWheel']
+          modifiers: 'shift', // shift、ctrl、alt
+          // eventTypes: ['leftMouseDown', 'rightMouseDown', 'mouseWheel']
         },
+        // scroller: {
+        //   enabled: true,
+        //   // pannable: true,
+        //   // pageVisible: true,
+        //   // pageBreak: false,
+        // },
+        // mousewheel: {
+        //   enabled: true,
+        //   modifiers: ['ctrl', 'meta'],
+        // },
       });
       (graph as Graph).fromJSON(data)
     })
@@ -79,7 +87,6 @@ export default defineComponent({
       // 画布是否可以平移
       console.log((graph as Graph).isPannable())
     }
-
 
     const enablePanning = ()=>{
       (graph as Graph).enablePanning() // 启用画布平移
@@ -92,6 +99,18 @@ export default defineComponent({
     const togglePanning = ()=>{
       (graph as Graph).togglePanning() // 切换画布平移状态
     }
+
+    const zoom = ()=>{
+      console.log((graph as Graph).zoom()) // 获取缩放级别
+    }
+    const zoomAdd = ()=>{
+      (graph as Graph).zoom(0.2) // 在原来缩放级别上增加 0.2
+    }
+    const zoomReduce = ()=>{
+      (graph as Graph).zoom(-0.2) // 在原来缩放级别上减少 0.2
+    }
+
+
     const centerContent = ()=>{
       (graph as Graph).centerContent() // 将画布内容中心与视口中心对齐
     }
@@ -104,27 +123,24 @@ export default defineComponent({
           },
           {
             preserveDimensions: {
-              width: 800,
-              height: 800,
+              width: 200,
+              height: 200,
             },
             stylesheet: `
               rect {
                 fill: red;
               }
             `,
-            copyStyles: false,
-            serializeImages:false,
-            beforeSerialize: (svg: SVGSVGElement)=>{
-              // 创建节点
-              console.log("我执行了",svg);
-            },
+            beforeSerialize:(svg: SVGSVGElement)=>{
+              console.log("我执行了",svg)
+            }
           }
       )
     }
 
     const toPNG = ()=> {
       (graph as Graph).toPNG(
-          (dataUri: string) => {
+          (dataUri: string)=>{
             // 下载
             DataUri.downloadDataUri(dataUri, 'chart.png')
           },
@@ -144,11 +160,15 @@ export default defineComponent({
     const dispose = ()=> {
       (graph as Graph).dispose()
     }
+
     return {
       isPan,
       enablePanning,
       disablePanning,
       togglePanning,
+      zoom,
+      zoomAdd,
+      zoomReduce,
       centerContent,
       toSVG,
       toPNG,
