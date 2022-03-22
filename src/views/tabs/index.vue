@@ -26,6 +26,10 @@
       <a-tab-pane key="basic01" tab="基础教程01-画布" >
         <basic01/>
       </a-tab-pane>
+      <a-tab-pane key="basic02" tab="基础教程02-基类cell" >
+        <basic02/>
+      </a-tab-pane>
+
     </a-tabs>
   </div>
 </template>
@@ -37,6 +41,7 @@ import quickStart02 from '../quickStart/index02'
 import quickStart03 from '../quickStart/index03'
 import quickStart04 from '../quickStart/index04'
 import basic01 from '../basic/index01'
+import basic02 from '../basic/index02'
 
 export default {
   name: "index",
@@ -46,7 +51,8 @@ export default {
     quickStart02,
     quickStart03,
     quickStart04,
-    basic01
+    basic01,
+    basic02
   }
 }
 </script>

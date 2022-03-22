@@ -1,6 +1,7 @@
 import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse} from 'axios';
-import {message, notification} from 'ant-design-vue';
-import store from "@/store"; // 这是我引入的antd的组件库,为了方便弹出吐司
+import {message} from 'ant-design-vue';
+// notification
+// import store from "@/store"; // 这是我引入的antd的组件库,为了方便弹出吐司
 
 export class Request {
     public static axiosInstance: AxiosInstance;
@@ -52,7 +53,10 @@ export class Request {
                 // if (config.headers.isJwt) {
                     const token = localStorage.getItem('ACCESS_TOKEN');
                     if (token) {
-                        config.headers.Authorization = 'Bearer ' + token;
+                        config.headers = {
+                            Authorization: 'Bearer ' + token
+                        }
+                        // config.headers.Authorization = 'Bearer ' + token;
                     }
                 // }
                 return config;

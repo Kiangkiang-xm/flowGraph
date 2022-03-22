@@ -299,6 +299,7 @@ export default class FlowGraph {
     const container = document.getElementById('container')!
 
     graph.on('node:contextmenu', ({ cell, view }) => {
+      console.log(view.container)
       const oldText = cell.attr('text/text') as string
       cell.attr('text/style/display', 'none')
       const elem = view.container.querySelector('.x6-edit-text') as HTMLElement
@@ -309,10 +310,13 @@ export default class FlowGraph {
       const onBlur = () => {
         cell.attr('text/text', elem.innerText)
       }
-      elem.addEventListener('blur', () => {
-        onBlur()
-        elem.removeEventListener('blur', onBlur)
-      })
+      if(elem){
+        elem.addEventListener('blur', () => {
+          onBlur()
+          elem.removeEventListener('blur', onBlur)
+        })
+      }
+
     })
     graph.on('node:mouseenter', FunctionExt.debounce(() => {
       const ports = container.querySelectorAll('.x6-port-body') as NodeListOf<SVGAElement>
