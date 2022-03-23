@@ -1,22 +1,49 @@
 <template>
-  <a-button @click="addNodeAndEdge">使用这些图形的构造函数来创建节点/边，然后调用 graph.addNode 或 graph.addEdge 方法将其添加到画布</a-button>
-  <a-button @click="test01">test01：react内置节点+selector选择器</a-button>
-  <a-button @click="test02">test02：自定义节点+标签+selector选择器</a-button>
-  <a-button @click="test03">test03：自定义节点+标签+selector选择器+群组选择器</a-button>
-  <a-button @click="test04">test04：自定义节点例子</a-button>
-  <a-button @click="test05">test05：使用 CSS 来定制样式</a-button>
-  <a-button @click="test06">test06：鼠标点击修改内容</a-button>
-  <a-button @click="test07">test07：鼠标点击修改内容</a-button>
+  <a-row :gutter="[8,8]">
+    <a-button @click="addNodeAndEdge">使用这些图形的构造函数来创建节点/边，然后调用 graph.addNode 或 graph.addEdge 方法将其添加到画布</a-button>
+    <a-button @click="test01">test01：react内置节点+selector选择器</a-button>
+    <a-button @click="test02">test02：自定义节点+标签+selector选择器</a-button>
+    <a-button @click="test03">test03：自定义节点+标签+selector选择器+群组选择器</a-button>
+    <a-button @click="test04">test04：自定义节点例子</a-button>
+    <a-button @click="test05">test05：使用 CSS 来定制样式</a-button>
+    <a-button @click="test06">test06：鼠标点击修改内容</a-button>
+    <a-button @click="test07">test07：通过控制面板修改属性</a-button>
+  </a-row>
 
-  <div id="container"></div>
+  <a-row :gutter="[8,8]" style="padding-top: 10px">
+    <a-col :span="20">
+     <div id="container"></div>
+    </a-col>
+    <!--右侧工具栏-->
+    <a-col :span="4">
+      <a-form :model="formState" v-if="isShow">
+        <a-form-item label="labelText">
+          <a-input v-model:value="formState.labelText" @change="onNameChange"/>
+        </a-form-item>
+      </a-form>
+    </a-col>
+  </a-row>
 </template>
 
 <script lang="ts">
-import {defineComponent, onMounted} from "vue";
-import {Graph, Shape, Node, Dom} from '@antv/x6';
+import {defineComponent, onMounted, reactive, UnwrapRef, nextTick, ref} from "vue";
+import {Graph, Shape, Node, Cell} from '@antv/x6';
+
+interface FormState {
+  labelText: any;
+}
+
 export default defineComponent({
   setup() {
-    let graph: any = {}
+    let graph: Graph;
+    let curCel: Cell | null;
+    const isShow = ref(false)
+
+    const formState: UnwrapRef<FormState> = reactive({
+      labelText: '',
+    });
+
+
     onMounted(() => {
       graph = new Graph({
         container: document.getElementById('container') as HTMLElement,
@@ -30,76 +57,24 @@ export default defineComponent({
         },
       });
 
-      // graph.on('blank:click', () => {
-      //   type.value = "grid"
-      // })
-      // (graph as Graph).on('cell:click', ({ cell }) => {
-      //
-      //   console.log(cell)
-      //
-      //   // type.value = cell.isNode() ? "node" : "edge"
-      //   // id.value = cell.id
-      // });
+    })
 
-      // Shape.Rect.config({
-      //   width: 80,
-      //   height: 40,
-      //   markup: [
-      //     {
-      //       tagName: 'rect',
-      //       selector: 'body',
-      //     },
-      //     {
-      //       tagName: 'text',
-      //       selector: 'label',
-      //     },
-      //   ],
-      //   attrs: {
-      //     body: {
-      //       fill: '#fff',
-      //       stroke: '#000',
-      //       strokeWidth: 2,
-      //     },
-      //     label: {
-      //       fontSize: 14,
-      //       fill: '#333',
-      //       fontFamily: 'Arial, helvetica, sans-serif',
-      //       textAnchor: 'middle',
-      //       textVerticalAnchor: 'middle',
-      //     }
-      //   },
-      // })
-      //
-      // // 只修改边框的默认颜色
-      // Shape.Rect.config({
-      //   attrs: {
-      //     body: {
-      //       stroke: 'red',
-      //     },
-      //   },
-      // })
-      //
-      // // 只修改默认文本颜色
-      // Shape.Rect.config({
-      //   attrs: {
-      //     label: {
-      //       fill: 'blue',
-      //       // 覆盖上面定义的 red
-      //       stroke: '#000',
-      //     },
-      //   },
-      // })
-      //
-      // graph.addNode({
-      //   x: 100,
-      //   y: 100,
-      //   attrs: {
-      //     label: {
-      //       text: 'rect1',
-      //     },
-      //   },
-      // })
+    nextTick(()=>{
+      graph.on('cell:click', ({cell}) => {
+        if(cell.getAttrs()?.label?.text){
+          formState.labelText = cell.getAttrs().label.text
+          curCel = cell
+          isShow.value = true
+        }else {
+          curCel = null
+          isShow.value = false
+        }
+      });
+    })
 
+
+    const onNameChange = (e: Event) => {
+      curCel?.attr('label/text', formState.labelText)
       // rect.attr('label/text', 'hello');
       // // 等同于
       // rect.attr('label', {
@@ -113,77 +88,7 @@ export default defineComponent({
       // });
       // // 当传入的属性值为 null 时可以移除该属性。
       // rect.attr('label/text', null);
-
-      // (graph as Graph).addNode({
-      //   x: 320,
-      //   y: 120,
-      //   width: 96,
-      //   height: 96,
-      //   markup: [
-      //     {
-      //       tagName: 'rect',
-      //       selector: 'body',
-      //     },
-      //     {
-      //       tagName: 'text',
-      //       selector: 'title',
-      //     },
-      //   ],
-      //
-      //   attrs: {
-      //     title: {
-      //       text: 'Node',
-      //       refX: 40,
-      //       refY: 14,
-      //       fill: 'rgba(0,0,0,0.85)',
-      //       fontSize: 12,
-      //       'text-anchor': 'start',
-      //     }
-      //   }
-      // });
-
-      // (graph as Graph).addNode({
-      //   x: 500,
-      //   y: 200,
-      //   width: 96,
-      //   height: 96,
-      //   markup: [
-      //     {
-      //       tagName: 'rect',
-      //       selector: 'body',
-      //       groupSelector: 'group1',
-      //     },
-      //     {
-      //       tagName: 'rect',
-      //       selector: 'wrap',
-      //       groupSelector: 'group1',
-      //     },
-      //     {
-      //       tagName: 'text',
-      //       selector: 'label',
-      //     },
-      //   ],
-      //
-      //   attrs: {
-      //     group1: {
-      //       fill: '#2ECC71',
-      //     },
-      //   }
-      // });
-
-      // (graph as Graph).addNode(new Shape.Rect({
-      //   x: 140,
-      //   y: 140,
-      //   width: 100,
-      //   height: 140,
-      //   data: {
-      //     bizID: 125,
-      //     date: '20200630',
-      //     price: 89.00,
-      //   }
-      // }));
-
-    })
+    }
 
 
     const addNodeAndEdge = ()=>{
@@ -260,7 +165,7 @@ export default defineComponent({
         },
       });
 
-      (graph as Graph).addNode(rect);
+      graph.addNode(rect);
 
     }
 
@@ -314,7 +219,7 @@ export default defineComponent({
         },
       };
 
-      (graph as Graph).addNode(metadata);
+      graph.addNode(metadata);
 
     }
 
@@ -512,7 +417,7 @@ export default defineComponent({
         height: 120,  // Number，可选，节点大小的 height 值
       });
 
-      (graph as Graph).addNode(textBlock);
+      graph.addNode(textBlock);
 
       // (graph as Graph).on('node:contextmenu', ({ cell, view }) => {
       //   console.log(view.container);
@@ -547,25 +452,15 @@ export default defineComponent({
             tagName: 'text',
             selector: 'label',
           },
-          {
-            tagName: 'foreignObject',
-            selector: 'fo',
-            children: [
-              {
-                ns: Dom.ns.xhtml,
-                tagName: 'body',
-                selector: 'foBody',
-                children: [
-                  {
-                    tagName: 'div',
-                    selector: 'editText',
-                  },
-                ],
-              },
-            ],
-          },
         ],
         attrs: {
+          text: {
+            fill: '#000',
+            fontSize: 14,
+            textAnchor: 'middle',
+            textVerticalAnchor: 'middle',
+            pointerEvents: 'none',
+          },
           rect: {
             fill: '#fff',
             rx: 3,
@@ -575,14 +470,6 @@ export default defineComponent({
             refX: 0,
             refY: 0,
           },
-          text: {
-            fill: '#000',
-            fontSize: 14,
-            textAnchor: 'middle',
-            textVerticalAnchor: 'middle',
-            pointerEvents: 'none',
-          },
-
           // 指定 rect 元素的样式
           body: {
             stroke: '#000', // 边框颜色
@@ -592,44 +479,22 @@ export default defineComponent({
           },
           // 指定 text 元素的样式
           label: {
-            // text: 'rect', // 文字
+            text: "react", // 文字
             fill: 'blue', // 文字颜色
-          },
-
-          fo: {
-            refWidth: '100%',
-            refHeight: '100%',
-          },
-          foBody: {
-            xmlns: Dom.ns.xhtml,
-            style: {
-              width: '100%',
-              height: '100%',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            },
-          },
-
-          editText: {
-            text: "11111111111",
-            contenteditable: 'true',
-            class: 'x6-edit-text',
-            style: {
-              width: '100%',
-              textAlign: 'center',
-              fontSize: 12,
-              color: 'rgba(0,0,0,0.85)',
-            },
           },
 
         },
       };
-
       (graph as Graph).addNode(metadata);
     }
 
+
+
     return {
+      isShow,
+      formState,
+      onNameChange,
+
       addNodeAndEdge,
       test01,
       test02,
@@ -637,7 +502,7 @@ export default defineComponent({
       test04,
       test05,
       test06,
-      test07
+      test07,
     }
   }
 })
