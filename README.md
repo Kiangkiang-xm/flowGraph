@@ -9,16 +9,5 @@ yarn install
 ```
 yarn serve
 ```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+![输入图片说明](src/assets/1648021634(1).png)
+![输入图片说明](src/assets/image.png)
