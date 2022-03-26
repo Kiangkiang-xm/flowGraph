@@ -2,45 +2,63 @@
   <a-row :gutter="[8,8]">
     <a-button @click="addNodeAndEdge">使用这些图形的构造函数来创建节点/边，然后调用 graph.addNode 或 graph.addEdge 方法将其添加到画布</a-button>
     <a-button @click="test01">test01：react内置节点+selector选择器</a-button>
-    <a-button @click="test02">test02：自定义节点+标签+selector选择器</a-button>
-    <a-button @click="test03">test03：自定义节点+标签+selector选择器+群组选择器</a-button>
-    <a-button @click="test04">test04：自定义节点例子</a-button>
+    <a-button @click="test02">test02：Node.Metadata+标签+selector选择器</a-button>
+    <a-button @click="test03">test03：Node.Metadata+标签+selector选择器+群组选择器</a-button>
+    <a-button @click="test04">test04：Node.Metadata例子</a-button>
     <a-button @click="test05">test05：使用 CSS 来定制样式</a-button>
     <a-button @click="test06">test06：鼠标点击修改内容</a-button>
     <a-button @click="test07">test07：通过控制面板修改属性</a-button>
   </a-row>
 
-  <a-row :gutter="[8,8]" style="padding-top: 10px">
+  <a-row :gutter="[16,8]" style="padding-top: 10px">
     <a-col :span="20">
      <div id="container"></div>
     </a-col>
     <!--右侧工具栏-->
     <a-col :span="4">
-      <a-form :model="formState" v-if="isShow">
-        <a-form-item label="labelText">
+      <a-form :model="formState">
+        <a-form-item label="标题" v-if="formState.labelText">
           <a-input v-model:value="formState.labelText" @change="onNameChange"/>
         </a-form-item>
+
+        <a-form-item label="用户" v-if="formState.userId">
+          <a-select v-model:value="formState.userId" placeholder="请选择用户">
+            <a-select-option :value = 1 >张三</a-select-option>
+            <a-select-option :value = 2 >李四 </a-select-option>
+          </a-select>
+        </a-form-item>
+
+        <a-form-item label="角色" v-if="formState.roleId">
+          <a-select v-model:value="formState.roleId" placeholder="请选择角色">
+            <a-select-option :value = 1 > 管理员1 </a-select-option>
+            <a-select-option :value = 2 > 管理员2 </a-select-option>
+          </a-select>
+        </a-form-item>
+
       </a-form>
     </a-col>
   </a-row>
 </template>
 
 <script lang="ts">
-import {defineComponent, onMounted, reactive, UnwrapRef, nextTick, ref} from "vue";
+import {defineComponent, onMounted, reactive, UnwrapRef, nextTick} from "vue";
 import {Graph, Shape, Node, Cell} from '@antv/x6';
 
 interface FormState {
   labelText: any;
+  userId: any;
+  roleId: any;
 }
 
 export default defineComponent({
   setup() {
     let graph: Graph;
     let curCel: Cell | null;
-    const isShow = ref(false)
 
     const formState: UnwrapRef<FormState> = reactive({
       labelText: '',
+      userId: '',
+      roleId: ''
     });
 
 
@@ -61,20 +79,30 @@ export default defineComponent({
 
     nextTick(()=>{
       graph.on('cell:click', ({cell}) => {
-        if(cell.getAttrs()?.label?.text){
-          formState.labelText = cell.getAttrs().label.text
-          curCel = cell
-          isShow.value = true
-        }else {
-          curCel = null
-          isShow.value = false
-        }
+
+        console.log(cell.getAttrs())
+
+        curCel?.attr('body/stroke', null)
+        curCel = cell
+        curCel?.attr('body/stroke', "red")
+
+        let labelText = null;
+        if (cell.getAttrs()?.text?.text) labelText = cell.getAttrs()?.text?.text
+        if (cell.getAttrs()?.label?.text) labelText = cell.getAttrs()?.label?.text
+        formState.labelText = labelText;
+
+        formState.userId = cell.getData()?.userId
+
+        formState.roleId = cell.getData()?.roleId
+
       });
     })
 
 
     const onNameChange = (e: Event) => {
+      console.log(e)
       curCel?.attr('label/text', formState.labelText)
+
       // rect.attr('label/text', 'hello');
       // // 等同于
       // rect.attr('label', {
@@ -236,7 +264,7 @@ export default defineComponent({
           },
           {
             tagName: 'text',
-            selector: 'title',
+            selector: 'label',
             groupSelector: 'textGroup',
           },
           {
@@ -251,7 +279,7 @@ export default defineComponent({
             strokeWidth: 1,
             fill: 'rgba(95,149,255,0.05)',
           },
-          title: {
+          label: {
             text: 'Node',
             refX: 40,
             refY: 14,
@@ -300,7 +328,7 @@ export default defineComponent({
           },
           {
             tagName: 'text',
-            selector: 'title',
+            selector: 'label',
           },
           {
             tagName: 'text',
@@ -321,7 +349,7 @@ export default defineComponent({
             x: 12,
             y: 12,
           },
-          title: {
+          label: {
             text: 'Node',
             refX: 40,
             refY: 14,
@@ -484,6 +512,10 @@ export default defineComponent({
           },
 
         },
+        data: {
+          userId: 1,
+          roleId: 1,
+        }
       };
       (graph as Graph).addNode(metadata);
     }
@@ -491,7 +523,6 @@ export default defineComponent({
 
 
     return {
-      isShow,
       formState,
       onNameChange,
 
@@ -512,6 +543,6 @@ export default defineComponent({
 /*.x6-node rect*/
 #container >>> .markupTest05Rect{
   fill: #2ECC71;
-  stroke: #000;
+  /*stroke: #000;*/
 }
 </style>
