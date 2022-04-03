@@ -1,6 +1,7 @@
 <template>
   <a-row :gutter="[8,8]">
-    <a-button @click="addNodeAndEdge">使用这些图形的构造函数来创建节点/边，然后调用 graph.addNode 或 graph.addEdge 方法将其添加到画布</a-button>
+    <a-button @click="addCustomNode">自定义节点</a-button>
+    <a-button @click="addNodeAndEdge">构造函数来创建节点/边</a-button>
     <a-button @click="test01">test01：react内置节点+selector选择器</a-button>
     <a-button @click="test02">test02：Node.Metadata+标签+selector选择器</a-button>
     <a-button @click="test03">test03：Node.Metadata+标签+selector选择器+群组选择器</a-button>
@@ -118,6 +119,47 @@ export default defineComponent({
       // rect.attr('label/text', null);
     }
 
+    const addCustomNode = () =>{
+      const customNode: Node = new Node({
+        x: 400,
+        y: 350,
+        width: 200,
+        height: 60,
+        markup: [
+          {
+            tagName: 'rect',
+            selector: 'body',
+          },
+          {
+            tagName: 'text',
+            selector: 'label',
+          },
+        ],
+        attrs: {
+          text: {
+            // fill: '#000',
+            fontSize: 14,
+            textAnchor: 'middle',
+            textVerticalAnchor: 'middle',
+          },
+          rect: {
+            ref: 'label',
+            stroke: '#000',
+            fill: '#fff',
+            rx: 3,
+            ry: 3,
+            refWidth: 100,
+            refHeight: 100,
+            refX: -50,
+            refY: -50,
+          },
+          label: {
+            text: "自定义node", // 文字
+          },
+        },
+      });
+      graph.addNode(customNode);
+    }
 
     const addNodeAndEdge = ()=>{
       const rect = new Shape.Rect({
@@ -526,6 +568,7 @@ export default defineComponent({
       formState,
       onNameChange,
 
+      addCustomNode,
       addNodeAndEdge,
       test01,
       test02,

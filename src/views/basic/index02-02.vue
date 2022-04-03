@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import {defineComponent, onMounted} from "vue";
-import {Graph, Shape, Node, Cell, ObjectExt} from '@antv/x6';
+import {Graph, Shape, Node, ObjectExt} from '@antv/x6';
 
 export default defineComponent({
   setup() {
@@ -112,7 +112,7 @@ export default defineComponent({
         y: 200,
         width: 200,
         height: 60,
-        shape: 'circle',
+        // shape: 'circle',
         markup: [
           {
             tagName: 'rect',
