@@ -1,7 +1,7 @@
 <template>
   <div class="login-container">
     <div class="content">
-      <a-card title="欢迎登陆CX工作流设计器" style="width: 100%;height: 100%">
+      <a-card title="antv x6 demo" style="width: 100%;height: 100%">
         <a-form  :model="loginForm" @submit="handleSubmit"><!--@submit.native.prevent-->
           <a-form-item>
             <a-input v-model:value="loginForm.account" placeholder="account" style="width: 350px" >
