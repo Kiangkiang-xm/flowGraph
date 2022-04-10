@@ -198,9 +198,9 @@ export default defineComponent({
         target: circle,
         zIndex: 1,
       });
-      (graph as Graph).addNode(rect);
-      (graph as Graph).addNode(circle);
-      (graph as Graph).addEdge(edge);
+      graph.addNode(rect);
+      graph.addNode(circle);
+      graph.addEdge(edge);
     }
 
     const test01 = () => {
@@ -350,7 +350,7 @@ export default defineComponent({
         },
       };
 
-      (graph as Graph).addNode(metadata);
+      graph.addNode(metadata);
     }
 
     const test04 = () =>{
@@ -409,7 +409,7 @@ export default defineComponent({
           },
         },
       };
-      (graph as Graph).addNode(metadata);
+      graph.addNode(metadata);
     }
 
     const test05 = () =>{
@@ -463,7 +463,7 @@ export default defineComponent({
         },
       };
 
-      (graph as Graph).addNode(metadata);
+      graph.addNode(metadata);
     }
 
     const test06 = () =>{
@@ -559,7 +559,7 @@ export default defineComponent({
           roleId: 1,
         }
       };
-      (graph as Graph).addNode(metadata);
+      graph.addNode(metadata);
     }
 
 

@@ -35,7 +35,7 @@ export default defineComponent({
         },
       ],
     };
-    let graph = {}
+    let graph: Graph;
     onMounted(() => {
       graph = new Graph({
         container: document.getElementById('container') as HTMLElement,
@@ -49,7 +49,7 @@ export default defineComponent({
           visible: true, // 渲染网格背景
         },
       });
-      (graph as Graph).fromJSON(data)
+      graph.fromJSON(data)
     })
     return {
     }
