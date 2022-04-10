@@ -9,35 +9,37 @@
     <a-button @click="test05">test05：使用 CSS 来定制样式</a-button>
     <a-button @click="test06">test06：鼠标点击修改内容</a-button>
     <a-button @click="test07">test07：通过控制面板修改属性</a-button>
+    <a-button @click="test08">test08：toJSON</a-button>
+
   </a-row>
 
   <a-row :gutter="[16,8]" style="padding-top: 10px">
     <a-col :span="20">
      <div id="container"></div>
     </a-col>
-    <!--右侧工具栏-->
+    <!--1、右侧工具栏 start-->
     <a-col :span="4">
       <a-form :model="formState">
-        <a-form-item label="标题" v-if="formState.labelText">
+        <a-form-item label="标题" v-show="formState.labelText !== null">
           <a-input v-model:value="formState.labelText" @change="onNameChange"/>
         </a-form-item>
 
-        <a-form-item label="用户" v-if="formState.userId">
-          <a-select v-model:value="formState.userId" placeholder="请选择用户">
+        <a-form-item label="用户" v-show="formState.userId !== null">
+          <a-select v-model:value="formState.userId" placeholder="请选择用户" @change="onUserIdChange">
             <a-select-option :value = 1 >张三</a-select-option>
             <a-select-option :value = 2 >李四 </a-select-option>
           </a-select>
         </a-form-item>
 
-        <a-form-item label="角色" v-if="formState.roleId">
-          <a-select v-model:value="formState.roleId" placeholder="请选择角色">
+        <a-form-item label="角色" v-show="formState.roleId !== null">
+          <a-select v-model:value="formState.roleId" placeholder="请选择角色" @change="onRoleIdChange">
             <a-select-option :value = 1 > 管理员1 </a-select-option>
             <a-select-option :value = 2 > 管理员2 </a-select-option>
           </a-select>
         </a-form-item>
-
       </a-form>
     </a-col>
+    <!--1、右侧工具栏 end-->
   </a-row>
 </template>
 
@@ -45,6 +47,7 @@
 import {defineComponent, onMounted, reactive, UnwrapRef, nextTick} from "vue";
 import {Graph, Shape, Node, Cell} from '@antv/x6';
 
+// formState 定义
 interface FormState {
   labelText: any;
   userId: any;
@@ -56,10 +59,11 @@ export default defineComponent({
     let graph: Graph;
     let curCel: Cell | null;
 
+    // 2、formState 定义
     const formState: UnwrapRef<FormState> = reactive({
-      labelText: '',
-      userId: '',
-      roleId: ''
+      labelText: null,
+      userId: null,
+      roleId: null
     });
 
 
@@ -78,30 +82,31 @@ export default defineComponent({
 
     })
 
+    // 3、节点点击事件，需保证页面渲染完成
     nextTick(()=>{
       graph.on('cell:click', ({cell}) => {
-
         console.log(cell.getAttrs())
-
+        // 将之前被选中的节点样式清除
         curCel?.attr('body/stroke', null)
+        // 新的节点赋值
         curCel = cell
+        // 新的节点边框样式设置为红色
         curCel?.attr('body/stroke', "red")
-
+        // 将labelText进行赋值（labelText有可能在text/text中，也有可能在label/text中）
         let labelText = null;
         if (cell.getAttrs()?.text?.text) labelText = cell.getAttrs()?.text?.text
         if (cell.getAttrs()?.label?.text) labelText = cell.getAttrs()?.label?.text
         formState.labelText = labelText;
-
+        // 将cell data中userId进行赋值
         formState.userId = cell.getData()?.userId
-
+        // 将cell data中roleId进行赋值
         formState.roleId = cell.getData()?.roleId
-
       });
     })
 
-
-    const onNameChange = (e: Event) => {
-      console.log(e)
+    // label/text设置
+    const onNameChange = () => {
+      // cell中的attr参数赋值
       curCel?.attr('label/text', formState.labelText)
 
       // rect.attr('label/text', 'hello');
@@ -119,8 +124,23 @@ export default defineComponent({
       // rect.attr('label/text', null);
     }
 
+    // data中的userId设置
+    const onUserIdChange = () =>{
+      curCel?.setData({
+        userId: formState.userId
+      })
+    }
+    // data中的roleId设置
+    const onRoleIdChange = () =>{
+      curCel?.setData({
+        roleId: formState.roleId
+      })
+    }
+
     const addCustomNode = () =>{
       const customNode: Node = new Node({
+        id: "customNodeId",
+        shape: "customNode",
         x: 400,
         y: 350,
         width: 200,
@@ -562,11 +582,15 @@ export default defineComponent({
       graph.addNode(metadata);
     }
 
-
+    const test08 = () => {
+      console.log(graph.toJSON())
+    }
 
     return {
       formState,
       onNameChange,
+      onUserIdChange,
+      onRoleIdChange,
 
       addCustomNode,
       addNodeAndEdge,
@@ -577,6 +601,7 @@ export default defineComponent({
       test05,
       test06,
       test07,
+      test08,
     }
   }
 })
