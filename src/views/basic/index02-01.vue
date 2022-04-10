@@ -533,46 +533,12 @@ export default defineComponent({
         y: 200,
         width: 200,
         height: 60,
-        markup: [
-          {
-            tagName: 'rect',
-            selector: 'body',
-          },
-          {
-            tagName: 'text',
-            selector: 'label',
-          },
-        ],
         attrs: {
-          text: {
-            fill: '#000',
-            fontSize: 14,
-            textAnchor: 'middle',
-            textVerticalAnchor: 'middle',
-            pointerEvents: 'none',
-          },
-          rect: {
-            fill: '#fff',
-            rx: 3,
-            ry: 3,
-            refWidth: 1,
-            refHeight: 1,
-            refX: 0,
-            refY: 0,
-          },
-          // 指定 rect 元素的样式
-          body: {
-            stroke: '#000', // 边框颜色
-            fill: '#fff',   // 填充颜色
-            refWidth: '100%',
-            refHeight: '100%',
-          },
           // 指定 text 元素的样式
           label: {
-            text: "react", // 文字
+            text: "rect", // 文字
             fill: 'blue', // 文字颜色
           },
-
         },
         data: {
           userId: 1,
@@ -600,6 +566,7 @@ export default defineComponent({
       test04,
       test05,
       test06,
+
       test07,
       test08,
     }
