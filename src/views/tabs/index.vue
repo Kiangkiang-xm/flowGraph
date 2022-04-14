@@ -29,11 +29,12 @@
       <a-tab-pane key="basic0201" tab="基础教程02-01基类cell" >
         <basic0201/>
       </a-tab-pane>
-      <a-tab-pane key="basic0202" tab="基础教程02-02基类cell" >
+      <a-tab-pane key="basic0202" tab="基础教程02-02模板综合实例" >
         <basic0202/>
       </a-tab-pane>
-      <a-tab-pane key="basic03" tab="基础教程03" >
-        <basic03/>
+
+      <a-tab-pane key="basic0203" tab="基础教程02-03基类cell" >
+        <basic0203/>
       </a-tab-pane>
 
     </a-tabs>
@@ -49,7 +50,7 @@ import quickStart04 from '../quickStart/index04'
 import basic01 from '../basic/index01'
 import basic0201 from '../basic/index02-01'
 import basic0202 from '../basic/index02-02'
-import basic03 from '../basic/index03'
+import basic0203 from '../basic/index02-03'
 
 export default {
   name: "index",
@@ -62,7 +63,7 @@ export default {
     basic01,
     basic0201,
     basic0202,
-    basic03
+    basic0203
   }
 }
 </script>
