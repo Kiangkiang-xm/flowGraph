@@ -29,7 +29,7 @@
       <a-tab-pane key="basic0201" tab="基础教程02-01基类cell" >
         <basic0201/>
       </a-tab-pane>
-      <a-tab-pane key="basic0202" tab="基础教程02-02模板综合实例" >
+      <a-tab-pane key="basic0202" tab="基础教程02-02拖拽模板综合实例" >
         <basic0202/>
       </a-tab-pane>
 

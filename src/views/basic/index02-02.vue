@@ -22,6 +22,9 @@
         <a-form-item label="内容" v-show="formData.content !== null">
           <a-input v-model:value="formData.content" readOnly />
         </a-form-item>
+
+        <a-button @click="toJson">toJSON</a-button>
+
       </a-form>
     </a-col>
   </a-row>
@@ -89,13 +92,17 @@ export default defineComponent({
           {
             name: 'basic',
             title: '基础节点',
+            // 高度
             graphHeight: 180,
           },
           {
             name: 'combination',
             title: '组合节点',
+            // 布局选项
             layoutOptions: {
+              // 每行几列
               columns: 1,
+              // 左侧边距
               marginX: 60,
             },
             graphHeight: 260,
@@ -127,9 +134,6 @@ export default defineComponent({
             fontSize: 12,
           },
         },
-        data: {
-          tableId: 1,
-        }
       })
       // 构造函数方式
       const bizNode2 = new Shape.Rect({
@@ -141,9 +145,6 @@ export default defineComponent({
             fontSize: 12,
           },
         },
-        data: {
-          tableId: 1,
-        }
       });
       // 节点元数据方式
       const bizNode3: Node.Metadata = {
@@ -155,9 +156,6 @@ export default defineComponent({
             fontSize: 12,
           },
         },
-        data: {
-          tableId: 1,
-        }
       }
 
       stencil.load([bizNode1, bizNode2, bizNode3], 'basic')
@@ -231,10 +229,15 @@ export default defineComponent({
       },100)
     }
 
+    const toJson = () => {
+      console.log(graph.toJSON())
+    }
+
     return {
       formData,
       dropdownData,
-      onIdChange
+      onIdChange,
+      toJson
     }
   }
 })
