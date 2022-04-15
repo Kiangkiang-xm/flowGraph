@@ -128,10 +128,10 @@ export default defineComponent({
         shape: "rect",
         width: 100,
         height: 50,
-        label: "业务节点1",
         attrs: {
           label: {
             fontSize: 12,
+            text: "业务节点1"
           },
         },
       })
@@ -139,10 +139,10 @@ export default defineComponent({
       const bizNode2 = new Shape.Rect({
         width: 100,
         height: 50,
-        label: "业务节点2",
         attrs: {
           label: {
             fontSize: 12,
+            text: "业务节点2"
           },
         },
       });
@@ -150,10 +150,10 @@ export default defineComponent({
       const bizNode3: Node.Metadata = {
         width: 100,
         height: 50,
-        label: "业务节点3",
         attrs: {
           label: {
             fontSize: 12,
+            text: "业务节点3"
           },
         },
       }
