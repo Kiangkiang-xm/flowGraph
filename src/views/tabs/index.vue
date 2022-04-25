@@ -40,6 +40,9 @@
       <a-tab-pane key="basic03" tab="基础教程03-节点node" >
         <basic03/>
       </a-tab-pane>
+      <a-tab-pane key="basic04" tab="基础教程04-边 Edge" >
+        <basic04/>
+      </a-tab-pane>
 
     </a-tabs>
   </div>
@@ -56,6 +59,7 @@ import basic0201 from '../basic/index02-01'
 import basic0202 from '../basic/index02-02'
 import basic0203 from '../basic/index02-03'
 import basic03 from '../basic/index03'
+import basic04 from '../basic/index04'
 
 export default {
   name: "index",
@@ -69,7 +73,8 @@ export default {
     basic0201,
     basic0202,
     basic0203,
-    basic03
+    basic03,
+    basic04
   }
 }
 </script>
