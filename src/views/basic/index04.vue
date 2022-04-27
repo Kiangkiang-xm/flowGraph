@@ -4,11 +4,26 @@
   <a-button @click="test22">test2-2：边的再设置</a-button>
   <a-button @click="test3">边的类型</a-button>
   <a-button @click="test4">四种添加边的方式</a-button>
+  <a-button @click="test5">vertices:路径点</a-button>
+  <a-button @click="test6">orth:正交路由</a-button>
+  <a-button @click="test7">oneSide:正交路由 'orth' 的受限版本</a-button>
+  <a-button @click="test8">manhattan：曼哈顿路由</a-button>
+  <a-button @click="test9">metro：地铁路由</a-button>
+  <a-button @click="test10">er</a-button>
+  <a-button @click="test11">自定义路由</a-button>
+  <a-button @click="test12">connector：链接器——normal：默认连接器</a-button>
+  <a-button @click="test13">connector：链接器——smooth：平滑连接器</a-button>
+  <a-button @click="test14">connector：链接器——rounded：圆角连接器</a-button>
+  <a-button @click="test15">connector：链接器——jumpover：跳线连接器</a-button>
+  <a-button @click="test16">connector：链接器——自定义连接器</a-button>
+
+
+
   <div id="container"></div>
 </template>
 
 <script lang="ts">
-import {Graph, Shape, Node, ObjectExt, Point, EdgeView} from '@antv/x6';
+import {Graph, Shape, Node, ObjectExt, Point, EdgeView, Path} from '@antv/x6';
 import {defineComponent, onMounted} from "vue";
 
 export default defineComponent({
@@ -246,97 +261,314 @@ export default defineComponent({
         target: { x: 438, y: 500 }, // 目标点
         label: 'target为坐标',
       })
-
-
-
-      // 自定义路由 路由参数
-      // interface RandomRouterArgs {
-      //   bounces?: number;
-      // }
-      //
-      // function randomRouter(vertices: Point.PointLike[], args: RandomRouterArgs, view: EdgeView) {
-      //   const bounces = args.bounces || 20
-      //   const points = vertices.map((p) => Point.create(p))
-      //
-      //   for (let i = 0; i < bounces; i++) {
-      //     const sourceCorner = view.sourceBBox.getCenter()
-      //     const targetCorner = view.targetBBox.getCenter()
-      //     const randomPoint = Point.random(
-      //         sourceCorner.x,
-      //         targetCorner.x,
-      //         sourceCorner.y,
-      //         targetCorner.y,
-      //     )
-      //     points.push(randomPoint)
-      //   }
-      //
-      //   return points
-      // }
-      //
-      // Graph.registerRouter('random', randomRouter)
-      //
-      // graph.addEdge({
-      //   source: rect1, // 源节点
-      //   target: rect2, // 目标节点
-      //   // 1、orth https://x6.antv.vision/zh/docs/api/registry/router#orth
-      //   // vertices: [
-      //   //   { x: 100, y: 200 },
-      //   //   { x: 300, y: 350 },
-      //   // ],
-      //   // router: {
-      //   //   name: 'orth',
-      //   //   args: {},
-      //   // },
-      //   // 2、oneSide 路由是正交路由 'orth' 的受限版本，该路生成一个严格的三段路由：从起始节点的 side 侧开始，经过中间段，再从终止节点的 side 侧结束路由。需要特别注意的是，使用该路由时请不要同时指定 vertices，否则路由效果会非常差。
-      //   // router: {
-      //   //   name: 'oneSide',
-      //   //   args: { side: 'right' },// 'left' | 'right' | 'top' | 'bottom'
-      //   // },
-      //   // 3、manhattan 曼哈顿路由 'manhattan' 路由是正交路由 'orth' 的智能版本，该路由由水平或垂直的正交线段组成，并自动避开路径上的其他节点（障碍）。
-      //   // router: {
-      //   //   name: 'manhattan',
-      //   //   args: {
-      //   //     startDirections: ['top'],
-      //   //     endDirections: ['bottom'],
-      //   //   },
-      //   // },
-      //   // 4、地铁路由 'metro' 是曼哈顿路由 manhattan 的一个变种，它由水平或垂直的正交线段和斜角线段组成，类似地铁轨道图，并自动避开路径上的其他节点（障碍）。其选项与 manhattan 路由一样，但 maxDirectionChange 的默认值为 45，表示路由线段的最大倾斜角度为 45 度。
-      //   // router: {
-      //   //   name: 'metro',
-      //   //   args: {
-      //   //     startDirections: ['top'],
-      //   //     endDirections: ['bottom'],
-      //   //   },
-      //   // },
-      //   // 5、实体关系路由 'er' 由 Z 字形的斜角线段组成，常用于表示 ER 图中的实体之间的连线。
-      //   // vertices: [
-      //   //   { x: 100, y: 200 },
-      //   //   { x: 300, y: 250 },
-      //   // ],
-      //   // router: {
-      //   //   name: 'er',
-      //   //   args: {
-      //   //     offset: 24,
-      //   //   },
-      //   // },
-      //   // 6、自定义路由
-      //   router: {
-      //     name: 'random',
-      //     args: {
-      //       bounces: 3,
-      //     },
-      //   },
-      //
-      // })
     }
 
+    const test5 = () => {
+      graph.addEdge({
+        source: {x: 600, y: 100},
+        target: {x: 600, y: 500},
+        // 路径点
+        vertices: [
+          { x: 550, y: 200 },
+          { x: 550, y: 350 },
+        ],
+      })
+    }
+
+    const test6 = () => {
+      graph.addEdge({
+        source: {x: 600, y: 100},
+        target: {x: 600, y: 500},
+        // 路径点
+        vertices: [
+          { x: 550, y: 200 },
+          { x: 550, y: 350 },
+        ],
+        // 1、正交路由 orth https://x6.antv.vision/zh/docs/api/registry/router#orth
+        router: {
+          name: 'orth',
+          args: {},
+        },
+      })
+    }
+
+    const test7 = () => {
+      graph.addEdge({
+        source: {x: 600, y: 100},
+        target: {x: 600, y: 500},
+        // 不推荐路径点
+        // vertices: [
+        //   { x: 550, y: 200 },
+        //   { x: 550, y: 350 },
+        // ],
+        //2、oneSide 路由是正交路由 'orth' 的受限版本，该路生成一个严格的三段路由：从起始节点的 side 侧开始，经过中间段，再从终止节点的 side 侧结束路由。需要特别注意的是，使用该路由时请不要同时指定 vertices，否则路由效果会非常差。
+        router: {
+          name: 'oneSide',
+          args: { side: 'right' },// 'left' | 'right' | 'top' | 'bottom'
+        },
+      })
+    }
+
+    const test8 = () => {
+      graph.addNode({
+        id: "barrier",
+        x: 700,
+        y: 200,
+        width: 80,
+        height: 40,
+        label: "障碍节点",
+      })
+      graph.addEdge({
+        source: {x: 700, y: 100},
+        target: {x: 700, y: 500},
+        // 路径点
+        // vertices: [
+        //   { x: 650, y: 200 },
+        //   { x: 650, y: 350 },
+        // ],
+        // 3、manhattan 曼哈顿路由 'manhattan' 路由是正交路由 'orth' 的智能版本，该路由由水平或垂直的正交线段组成，并自动避开路径上的其他节点（障碍）。
+        router: {
+          name: 'manhattan',
+          // args: {
+          //   startDirections: ['top'],
+          //   endDirections: ['bottom'],
+          // },
+        },
+      })
+    }
+
+    const test9 = () => {
+      graph.addEdge({
+        source: {x: 800, y: 100},
+        target: {x: 800, y: 500},
+        // 路径点
+        vertices: [
+          { x: 850, y: 200 },
+          { x: 850, y: 350 },
+        ],
+        // 4、地铁路由 'metro' 是曼哈顿路由 manhattan 的一个变种，它由水平或垂直的正交线段和斜角线段组成，类似地铁轨道图，并自动避开路径上的其他节点（障碍）。其选项与 manhattan 路由一样，但 maxDirectionChange 的默认值为 45，表示路由线段的最大倾斜角度为 45 度。
+        router: {
+          name: 'metro',
+          args: {
+            maxDirectionChange: 100,// 默认45
+            // startDirections: ['top'],
+            // endDirections: ['bottom'],
+          },
+        },
+      })
+    }
+
+    const test10 = () => {
+      graph.addEdge({
+        source: {x: 850, y: 100},
+        target: {x: 850, y: 500},
+        // 路径点
+        vertices: [
+          { x: 900, y: 200 },
+          { x: 900, y: 350 },
+        ],
+        // 5、实体关系路由 'er' 由 Z 字形的斜角线段组成，常用于表示 ER 图中的实体之间的连线。
+        router: {
+          name: 'er',
+          args: {
+            // 路由的第一个点和最后一个点与节点之间的距离。当取值为 'center' 时，节点距离的中心作为路由点坐标。
+            offset: 32,
+            // 路由的第一个点和最后一个点与节点之间的最小距离。
+            min: 16,
+            // 路由方向，缺省时将自动选择最优方向。'T' | 'B' | 'L' | 'R' | 'H' | 'V'
+            direction: undefined
+          },
+        },
+      })
+    }
+
+    // 自定义路由 路由参数
+    interface RandomRouterArgs {
+      bounces?: number;
+    }
+
+    function randomRouter(vertices: Point.PointLike[], args: RandomRouterArgs, view: EdgeView) {
+      const bounces = args.bounces || 20
+      const points = vertices.map((p) => Point.create(p))
+
+      for (let i = 0; i < bounces; i++) {
+        const sourceCorner = view.sourceBBox.getCenter()
+        const targetCorner = view.targetBBox.getCenter()
+        const randomPoint = Point.random(
+            sourceCorner.x,
+            targetCorner.x,
+            sourceCorner.y,
+            targetCorner.y,
+        )
+        points.push(randomPoint)
+      }
+
+      return points
+    }
+
+    Graph.registerRouter('random', randomRouter)
+
+    const test11 = () => {
+      graph.addEdge({
+        source: {x: 900, y: 100},
+        target: {x: 900, y: 500},
+        // 路径点
+        vertices: [
+          { x: 950, y: 200 },
+          { x: 950, y: 350 },
+        ],
+        // 6、自定义路由
+        router: {
+          name: 'random',
+          args: {
+            bounces: 3,
+          },
+        },
+      })
+
+    }
+
+    const test12 = () => {
+      graph.addEdge({
+        source: {x: 1000, y: 100},
+        target: {x: 1000, y: 500},
+        vertices: [
+          { x: 1050, y: 200 },
+          { x: 1050, y: 300 },
+        ],
+        router: 'orth',
+        // 系统的默认连接器，将起点、路由点、终点通过直线按顺序连接。
+        connector: 'normal',
+        // 或
+        // connector: {
+        //   name: 'normal',
+        // },
+      })
+    }
+
+    const test13 = () => {
+      graph.addEdge({
+        source: {x: 1050, y: 100},
+        target: {x: 1050, y: 500},
+        vertices: [
+          { x: 1100, y: 200 },
+          { x: 1100, y: 300 },
+        ],
+        router: 'orth',
+        // 平滑连接器，通过三次贝塞尔链接起点、路由点和终点。
+        connector: 'smooth',
+      })
+    }
+
+    const test14 = () => {
+      graph.addEdge({
+        source: {x: 1100, y: 100},
+        target: {x: 1100, y: 500},
+        vertices: [
+          { x: 1150, y: 200 },
+          { x: 1150, y: 300 },
+        ],
+        router: 'orth',
+        //圆角连接器，将起点、路由点、终点通过直线按顺序连接，并在线段连接处通过圆弧连接（倒圆角）。
+        connector: 'rounded',
+      })
+    }
+
+    const test15 = () => {
+      graph.addEdge({
+        source: {x: 800, y: 300},
+        target: {x: 1400, y: 300},
+        // vertices: [
+        //   { x: 1150, y: 200 },
+        //   { x: 1150, y: 300 },
+        // ],
+        router: 'orth',
+        // 跳线连接器，用直线连接起点、路由点和终点，并在边与边的交叉处用跳线符号链接。
+        connector: {
+          name: 'jumpover',
+          args:{
+            type: 'arc', // 'arc' | 'gap' | 'cubic' 跳线类型。
+            size: 5, // 跳线大小。
+            radius: 0, // 倒角半径。
+            raw: false // 是否返回一个 Path 对象，默认值为 false 返回序列化后的字符串
+          },
+
+        },
+      })
+    }
+
+
+    // 自定义链接器
+    interface WobbleArgs {
+      spread?: number;
+      raw?: boolean;
+    }
+    Graph.registerConnector('wobble', (sourcePoint, targetPoint, vertices, args: WobbleArgs) => {
+          const spread = args.spread || 20
+          const points = [...vertices, targetPoint].map((p) => Point.create(p))
+          let prev = Point.create(sourcePoint)
+          const path = new Path()
+          path.appendSegment(Path.createSegment('M', prev))
+
+          for (let i = 0, n = points.length; i < n; i += 1) {
+            const next = points[i]
+            const distance = prev.distance(next)
+            let d = spread
+
+            while (d < distance) {
+              const current = prev.clone().move(next, -d)
+              current.translate(
+                  Math.floor(7 * Math.random()) - 3,
+                  Math.floor(7 * Math.random()) - 3,
+              )
+              path.appendSegment(Path.createSegment('L', current))
+              d += spread
+            }
+
+            path.appendSegment(Path.createSegment('L', next))
+            prev = next
+          }
+
+          return path
+        },
+        true,
+    )
+
+    const test16 = () => {
+      graph.addEdge({
+        source: {x: 1200, y: 100},
+        target: {x: 1200, y: 500},
+        vertices: [
+          { x: 1250, y: 200 },
+          { x: 1250, y: 300 },
+        ],
+        router: 'orth',
+        // 跳线连接器，用直线连接起点、路由点和终点，并在边与边的交叉处用跳线符号链接。
+        connector: {
+          name: 'wobble',
+          args:{ spread: 16 },
+        },
+      })
+    }
 
     return {
       test1,
       test21,
       test22,
       test3,
-      test4
+      test4,
+      test5,
+      test6,
+      test7,
+      test8,
+      test9,
+      test10,
+      test11,
+      test12,
+      test13,
+      test14,
+      test15,
+      test16
     }
   }
 })
