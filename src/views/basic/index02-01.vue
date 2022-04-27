@@ -200,6 +200,12 @@ export default defineComponent({
           label: {
             text: 'rect', // 文字
             fill: '#333', // 文字颜色
+            // https://x6.antv.vision/zh/docs/api/registry/attr#textwrap
+            textWrap: {
+              width: '80%',// 内容超过节点宽度的80%会换行
+              ellipsis: true,  // 文本超出显示范围时，自动添加省略号
+              breakWord: true, // 是否截断单词
+            },
           },
         },
       });
