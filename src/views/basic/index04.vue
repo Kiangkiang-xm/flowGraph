@@ -16,6 +16,7 @@
   <a-button @click="test14">connector：链接器——rounded：圆角连接器</a-button>
   <a-button @click="test15">connector：链接器——jumpover：跳线连接器</a-button>
   <a-button @click="test16">connector：链接器——自定义连接器</a-button>
+  <a-button @click="test17">公交路线</a-button>
 
 
 
@@ -26,6 +27,69 @@
 import {Graph, Shape, Node, ObjectExt, Point, EdgeView, Path} from '@antv/x6';
 import {defineComponent, onMounted} from "vue";
 
+// 注册自定义路由
+interface RandomRouterArgs {
+  bounces?: number;
+}
+
+function randomRouter(vertices: Point.PointLike[], args: RandomRouterArgs, view: EdgeView) {
+  const bounces = args.bounces || 20
+  const points = vertices.map((p) => Point.create(p))
+
+  for (let i = 0; i < bounces; i++) {
+    const sourceCorner = view.sourceBBox.getCenter()
+    const targetCorner = view.targetBBox.getCenter()
+    const randomPoint = Point.random(
+        sourceCorner.x,
+        targetCorner.x,
+        sourceCorner.y,
+        targetCorner.y,
+    )
+    points.push(randomPoint)
+  }
+
+  return points
+}
+
+Graph.registerRouter('random', randomRouter)
+
+// 注册自定义链接器
+interface WobbleArgs {
+  spread?: number;
+  raw?: boolean;
+}
+Graph.registerConnector('wobble', (sourcePoint, targetPoint, vertices, args: WobbleArgs) => {
+      const spread = args.spread || 20
+      const points = [...vertices, targetPoint].map((p) => Point.create(p))
+      let prev = Point.create(sourcePoint)
+      const path = new Path()
+      path.appendSegment(Path.createSegment('M', prev))
+
+      for (let i = 0, n = points.length; i < n; i += 1) {
+        const next = points[i]
+        const distance = prev.distance(next)
+        let d = spread
+
+        while (d < distance) {
+          const current = prev.clone().move(next, -d)
+          current.translate(
+              Math.floor(7 * Math.random()) - 3,
+              Math.floor(7 * Math.random()) - 3,
+          )
+          path.appendSegment(Path.createSegment('L', current))
+          d += spread
+        }
+
+        path.appendSegment(Path.createSegment('L', next))
+        prev = next
+      }
+
+      return path
+    },
+    true,
+)
+
+
 export default defineComponent({
   setup() {
     let graph: Graph;
@@ -33,7 +97,7 @@ export default defineComponent({
     onMounted(() => {
       graph = new Graph({
         container: document.getElementById('container') as HTMLElement,
-        height: 600,
+        height: 1200,
         background: {
           color: '#fffbe6', // 设置画布背景颜色
         },
@@ -382,31 +446,6 @@ export default defineComponent({
       })
     }
 
-    // 自定义路由 路由参数
-    interface RandomRouterArgs {
-      bounces?: number;
-    }
-
-    function randomRouter(vertices: Point.PointLike[], args: RandomRouterArgs, view: EdgeView) {
-      const bounces = args.bounces || 20
-      const points = vertices.map((p) => Point.create(p))
-
-      for (let i = 0; i < bounces; i++) {
-        const sourceCorner = view.sourceBBox.getCenter()
-        const targetCorner = view.targetBBox.getCenter()
-        const randomPoint = Point.random(
-            sourceCorner.x,
-            targetCorner.x,
-            sourceCorner.y,
-            targetCorner.y,
-        )
-        points.push(randomPoint)
-      }
-
-      return points
-    }
-
-    Graph.registerRouter('random', randomRouter)
 
     const test11 = () => {
       graph.addEdge({
@@ -497,43 +536,6 @@ export default defineComponent({
       })
     }
 
-
-    // 自定义链接器
-    interface WobbleArgs {
-      spread?: number;
-      raw?: boolean;
-    }
-    Graph.registerConnector('wobble', (sourcePoint, targetPoint, vertices, args: WobbleArgs) => {
-          const spread = args.spread || 20
-          const points = [...vertices, targetPoint].map((p) => Point.create(p))
-          let prev = Point.create(sourcePoint)
-          const path = new Path()
-          path.appendSegment(Path.createSegment('M', prev))
-
-          for (let i = 0, n = points.length; i < n; i += 1) {
-            const next = points[i]
-            const distance = prev.distance(next)
-            let d = spread
-
-            while (d < distance) {
-              const current = prev.clone().move(next, -d)
-              current.translate(
-                  Math.floor(7 * Math.random()) - 3,
-                  Math.floor(7 * Math.random()) - 3,
-              )
-              path.appendSegment(Path.createSegment('L', current))
-              d += spread
-            }
-
-            path.appendSegment(Path.createSegment('L', next))
-            prev = next
-          }
-
-          return path
-        },
-        true,
-    )
-
     const test16 = () => {
       graph.addEdge({
         source: {x: 1200, y: 100},
@@ -548,6 +550,153 @@ export default defineComponent({
           name: 'wobble',
           args:{ spread: 16 },
         },
+      })
+    }
+
+    const test17 = () => {
+      graph.addEdge({
+        source: {x: 100, y: 50},
+        target: {x: 1400, y: 50},
+        labels: [
+          {
+            markup: [
+              {
+                tagName: "circle",
+                selector: "dot"
+              },
+              {
+                tagName: "text",
+                selector: "txt"
+              }
+            ],
+            attrs: {
+              txt: {
+                fill: "#7c68fc",
+                textAnchor: "middle",
+                textVerticalAnchor: "middle",
+                refX: 0,
+                refY: 20,
+                text: "始发站"
+              },
+              dot: {
+                fill: "#fff",
+                stroke: "red",
+                strokeWidth: 1,
+                r: 5,
+                cx: 0,
+                cy: 0,
+              }
+            },
+            position: {
+              distance: 0, // 位置
+            }
+          },
+          {
+            markup: [
+              {
+                tagName: "circle",
+                selector: "dot"
+              },
+              {
+                tagName: "text",
+                selector: "txt"
+              }
+            ],
+            attrs: {
+              txt: {
+                fill: "#7c68fc",
+                textAnchor: "middle",
+                textVerticalAnchor: "middle",
+                refX: 0,
+                refY: 20,
+                text: "站点A"
+              },
+              dot: {
+                fill: "#fff",
+                stroke: "#000",
+                strokeWidth: 1,
+                r: 5,
+                cx: 0,
+                cy: 0,
+              }
+            },
+            position: {
+              distance: 0.2, // 位置
+            }
+          },
+          {
+            markup: [
+              {
+                tagName: "circle",
+                selector: "dot"
+              },
+              {
+                tagName: "text",
+                selector: "txt"
+              }
+            ],
+            attrs: {
+              txt: {
+                fill: "#7c68fc",
+                textAnchor: "middle",
+                textVerticalAnchor: "middle",
+                refX: 0,
+                refY: 20,
+                text: "站点B（车辆当前位置）"
+              },
+              dot: {
+                fill: "green",
+                stroke: "#000",
+                strokeWidth: 1,
+                r: 5,
+                cx: 0,
+                cy: 0,
+              }
+            },
+            position: {
+              distance: 0.5, // 位置
+            }
+          },
+          {
+            markup: [
+              {
+                tagName: "circle",
+                selector: "dot"
+              },
+              {
+                tagName: "text",
+                selector: "txt"
+              }
+            ],
+            attrs: {
+              txt: {
+                fill: "#7c68fc",
+                textAnchor: "middle",
+                textVerticalAnchor: "middle",
+                refX: 0,
+                refY: 20,
+                text: "终点站"
+              },
+              dot: {
+                fill: "#fff",
+                stroke: "red",
+                strokeWidth: 1,
+                r: 5,
+                cx: 0,
+                cy: 0,
+              }
+            },
+            position: {
+              distance: 1, // 位置
+            }
+          },
+        ],
+        attrs:{
+          line: {
+            sourceMarker: '',
+            targetMarker: '',
+          },
+        }
       })
     }
 
@@ -568,7 +717,8 @@ export default defineComponent({
       test13,
       test14,
       test15,
-      test16
+      test16,
+      test17
     }
   }
 })
