@@ -4,7 +4,7 @@
 </template>
 
 <script lang="ts">
-import {Graph, Shape, Node, ObjectExt, Point, EdgeView} from '@antv/x6';
+import {Graph, Shape, Node} from '@antv/x6';
 import {defineComponent, onMounted, ref, inject } from "vue";
 
 import '@antv/x6-vue-shape'
@@ -213,6 +213,55 @@ export default defineComponent({
           body: { fill },
           label: { text: id },
         },
+        ports: {
+          groups: {
+            // 链接桩定义
+            topGroup: {
+              position: 'top', // https://x6.antv.vision/zh/docs/tutorial/basic/port#%E9%93%BE%E6%8E%A5%E6%A1%A9%E4%BD%8D%E7%BD%AE
+              attrs: {
+                circle: {
+                  r: 6,
+                  magnet: true,
+                  stroke: '#31d0c6',
+                  strokeWidth: 2,
+                  fill: '#fff',
+                },
+              },
+            },
+            bottomGroup: {
+              position: 'bottom', // https://x6.antv.vision/zh/docs/tutorial/basic/port#%E9%93%BE%E6%8E%A5%E6%A1%A9%E4%BD%8D%E7%BD%AE
+              attrs: {
+                circle: {
+                  r: 6,
+                  magnet: true,
+                  stroke: '#31d0c6',
+                  strokeWidth: 2,
+                  fill: '#fff',
+                },
+              },
+            },
+          },
+          items: [
+            {
+              id: 'port1',
+              group: 'topGroup',
+              attrs: {
+                text: {          // 标签选择器
+                  text: 'top', // 标签文本
+                },
+              },
+            },
+            {
+              id: 'port2',
+              group: 'bottomGroup',
+              attrs: {
+                text: {          // 标签选择器
+                  text: 'bottom', // 标签文本
+                },
+              },
+            },
+        ]
+        }
       })
       graph.addNode(group)
       return group

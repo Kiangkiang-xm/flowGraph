@@ -16,7 +16,7 @@
   <a-button @click="test14">connector：链接器——rounded：圆角连接器</a-button>
   <a-button @click="test15">connector：链接器——jumpover：跳线连接器</a-button>
   <a-button @click="test16">connector：链接器——自定义连接器</a-button>
-  <a-button @click="test17">公交路线</a-button>
+  <a-button @click="busRoutes">公交路线</a-button>
 
 
 
@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts">
-import {Graph, Shape, Node, ObjectExt, Point, EdgeView, Path} from '@antv/x6';
+import {Graph, Shape, Point, EdgeView, Path} from '@antv/x6';
 import {defineComponent, onMounted} from "vue";
 
 // 注册自定义路由
@@ -93,7 +93,6 @@ Graph.registerConnector('wobble', (sourcePoint, targetPoint, vertices, args: Wob
 export default defineComponent({
   setup() {
     let graph: Graph;
-
     onMounted(() => {
       graph = new Graph({
         container: document.getElementById('container') as HTMLElement,
@@ -553,7 +552,7 @@ export default defineComponent({
       })
     }
 
-    const test17 = () => {
+    const busRoutes = () => {
       graph.addEdge({
         source: {x: 100, y: 50},
         target: {x: 1400, y: 50},
@@ -718,7 +717,7 @@ export default defineComponent({
       test14,
       test15,
       test16,
-      test17
+      busRoutes
     }
   }
 })
