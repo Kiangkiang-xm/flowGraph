@@ -43,6 +43,10 @@
       <a-tab-pane key="basic0401" tab="基础教程04-01创建边、路径点、路由、链接器" >
         <basic0401/>
       </a-tab-pane>
+      <a-tab-pane key="basic0402" tab="基础教程04-02边的标签和公交路线实例" >
+        <basic0402/>
+      </a-tab-pane>
+
 
       <a-tab-pane key="basic05" tab="基础教程05-组" >
         <basic05/>
@@ -64,6 +68,8 @@ import basic0202 from '../basic/index02-02'
 import basic0203 from '../basic/index02-03'
 import basic03 from '../basic/index03'
 import basic0401 from '../basic/index04-1'
+import basic0402 from '../basic/index04-2'
+
 import basic05 from '../basic/index05'
 
 export default {
@@ -80,6 +86,7 @@ export default {
     basic0203,
     basic03,
     basic0401,
+    basic0402,
     basic05
   }
 }
