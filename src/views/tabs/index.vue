@@ -47,9 +47,13 @@
         <basic0402/>
       </a-tab-pane>
 
-
-      <a-tab-pane key="basic05" tab="基础教程05-组" >
+      <a-tab-pane key="basic05" tab="基础教程05 群组" >
         <basic05/>
+      </a-tab-pane>
+
+
+      <a-tab-pane key="basic06" tab="基础教程06组+vue" >
+        <basic06/>
       </a-tab-pane>
 
     </a-tabs>
@@ -69,8 +73,9 @@ import basic0203 from '../basic/index02-03'
 import basic03 from '../basic/index03'
 import basic0401 from '../basic/index04-1'
 import basic0402 from '../basic/index04-2'
-
 import basic05 from '../basic/index05'
+
+import basic06 from '../basic/index06'
 
 export default {
   name: "index",
@@ -87,7 +92,8 @@ export default {
     basic03,
     basic0401,
     basic0402,
-    basic05
+    basic05,
+    basic06
   }
 }
 </script>
