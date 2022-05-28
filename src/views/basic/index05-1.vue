@@ -8,8 +8,8 @@
 </template>
 
 <script lang="ts">
-import {Graph, Shape, Node} from '@antv/x6';
-import {defineComponent, onMounted, ref, inject } from "vue";
+import {Graph} from '@antv/x6';
+import {defineComponent, onMounted } from "vue";
 
 export default defineComponent({
   setup() {
@@ -27,9 +27,9 @@ export default defineComponent({
           visible: true, // 渲染网格背景
         },
         // 当源/目标是画布上的点时，需要开启 allowBlank 选项（默认已经开启）才能生效
-        connecting: {
-          allowBlank: false,
-        },
+        // connecting: {
+        //   allowBlank: false,
+        // },
         // translating: {
         //   // 限制子节点的移动
         //   restrict(view) {
