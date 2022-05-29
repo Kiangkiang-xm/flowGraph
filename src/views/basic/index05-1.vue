@@ -1,6 +1,6 @@
 <template>
-  <a-button @click="test1">test1：基础嵌套</a-button>
-  <a-button @click="test2">test2：子节点的原点位置仍然是左上角</a-button>
+  <a-button @click="test1">test1：简单的父子嵌套</a-button>
+  <a-button @click="test2">test2：子节点的原点位置-左上角</a-button>
   <a-button @click="test3">test3：移动父节点时，边的路径点将跟随移动(注意添加边的顺序)</a-button>
   <a-button @click="test4">test4：移动父节点时，边的路径点不跟随移动(注意添加边的顺序)</a-button>
 

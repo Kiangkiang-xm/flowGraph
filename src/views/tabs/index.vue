@@ -51,9 +51,12 @@
         <basic0501/>
       </a-tab-pane>
 
+      <a-tab-pane key="senior01" tab="高级进阶 vue" >
+        <senior01/>
+      </a-tab-pane>
 
-      <a-tab-pane key="basic06" tab="基础教程06组+vue" >
-        <basic06/>
+      <a-tab-pane key="senior02" tab="高级进阶 群组+vue" >
+        <senior02/>
       </a-tab-pane>
 
     </a-tabs>
@@ -75,7 +78,8 @@ import basic0401 from '../basic/index04-1'
 import basic0402 from '../basic/index04-2'
 import basic0501 from '../basic/index05-1'
 
-import basic06 from '../basic/index06'
+import senior01 from '../senior/index01/index'
+import senior02 from '../senior/index02'
 
 export default {
   name: "index",
@@ -93,7 +97,8 @@ export default {
     basic0401,
     basic0402,
     basic0501,
-    basic06
+    senior01,
+    senior02
   }
 }
 </script>
