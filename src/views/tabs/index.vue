@@ -51,6 +51,26 @@
         <basic0501/>
       </a-tab-pane>
 
+      <a-tab-pane key="basic0502" tab="基础教程05-02 交互创建嵌套" >
+        <basic0502/>
+      </a-tab-pane>
+
+      <a-tab-pane key="basic0503" tab="基础教程05-03 限制子节点的移动" >
+        <basic0503/>
+      </a-tab-pane>
+
+      <a-tab-pane key="basic0504" tab="基础教程05-04 交互创建嵌套+限制子节点的移动" >
+        <basic0504/>
+      </a-tab-pane>
+
+      <a-tab-pane key="basic0505" tab="基础教程05-05 自动扩展父节点" >
+        <basic0505/>
+      </a-tab-pane>
+
+      <a-tab-pane key="basic0506" tab="基础教程05-06 展开/折叠父节点" >
+        <basic0506/>
+      </a-tab-pane>
+
       <a-tab-pane key="senior01" tab="高级进阶 vue" >
         <senior01/>
       </a-tab-pane>
@@ -77,6 +97,11 @@ import basic03 from '../basic/index03'
 import basic0401 from '../basic/index04-1'
 import basic0402 from '../basic/index04-2'
 import basic0501 from '../basic/index05-1'
+import basic0502 from '../basic/index05-2'
+import basic0503 from '../basic/index05-3'
+import basic0504 from '../basic/index05-4'
+import basic0505 from '../basic/index05-5'
+import basic0506 from '../basic/index05-6/index'
 
 import senior01 from '../senior/index01/index'
 import senior02 from '../senior/index02'
@@ -97,6 +122,11 @@ export default {
     basic0401,
     basic0402,
     basic0501,
+    basic0502,
+    basic0503,
+    basic0504,
+    basic0505,
+    basic0506,
     senior01,
     senior02
   }
