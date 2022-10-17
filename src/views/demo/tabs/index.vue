@@ -4,7 +4,6 @@
       <a-tab-pane key="flow" tab="流程图">
         <flow />
       </a-tab-pane>
-
       <a-tab-pane key="quickStart01" tab="快速上手01">
         <quick-start01 />
       </a-tab-pane>
@@ -65,6 +64,10 @@
         <basic0506 />
       </a-tab-pane>
 
+      <a-tab-pane key="basic0601" tab="基础教程0601">
+        <basic0601 />
+      </a-tab-pane>
+
       <a-tab-pane key="senior01" tab="高级进阶 vue">
         <senior01 />
       </a-tab-pane>
@@ -95,6 +98,7 @@
   import basic0504 from '../basic/index05-4.vue';
   import basic0505 from '../basic/index05-5.vue';
   import basic0506 from '../basic/index05-6/index.vue';
+  import basic0601 from '../basic/index06-01.vue';
 
   import senior01 from '../senior/index01/index.vue';
   import senior02 from '../senior/index02.vue';
@@ -120,6 +124,7 @@
       basic0504,
       basic0505,
       basic0506,
+      basic0601,
       senior01,
       senior02,
     },

@@ -1,8 +1,7 @@
 <script setup lang="ts">
   import { reactive } from 'vue';
   import Header from '/@/components/Header/index.vue';
-  const title = `通过TailWind快速实现<br>Github2021年年度
-                    <a traget="_blank" href="https://octoverse.github.com/"><font>octoverse</font></a>`;
+  const title = `通过TailWind快速实现<br>Github2021年年度<a traget="_blank" href="https://octoverse.github.com/"><font>octoverse</font></a>`;
   const datav = reactive([
     { num: 73, unit: '百万+', text: 'GitHub 上的开发人员总数', bg: 'bg-1' },
     { num: 16, unit: '百万+', text: '2021年新增用户', bg: 'bg-2' },
