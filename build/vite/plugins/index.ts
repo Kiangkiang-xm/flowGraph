@@ -3,8 +3,8 @@
  * @description 封装plugins数组统一调用
  */
 import { PluginOption } from 'vite';
-import vue from '@vitejs/plugin-vue';
-import vueJsx from '@vitejs/plugin-vue-jsx';
+// import vue from '@vitejs/plugin-vue';
+// import vueJsx from '@vitejs/plugin-vue-jsx';
 import VitePluginCertificate from 'vite-plugin-mkcert';
 import vueSetupExtend from 'vite-plugin-vue-setup-extend';
 import { ConfigSvgIconsPlugin } from './svgIcons';
@@ -18,13 +18,20 @@ import { ConfigRestartPlugin } from './restart';
 import { ConfigProgressPlugin } from './progress';
 import { ConfigImageminPlugin } from './imagemin';
 import { ConfigUnocssPlugin } from './unocss';
-
+// >= veaury@2.1.1
+import veauryVitePlugins from 'veaury/vite/index.js';
 export function createVitePlugins(isBuild: boolean) {
   const vitePlugins: (PluginOption | PluginOption[])[] = [
+    // 关闭 vue 和 vuejsx 插件
     // vue支持
-    vue(),
+    // vue(),
     // JSX支持
-    vueJsx(),
+    // vueJsx(),
+    // type设为vue时, 所有名为react_app目录中的文件的jsx将被react jsx编译，其他文件里的jsx将以vue jsx编译
+    veauryVitePlugins({
+      type: 'vue',
+    }),
+
     // setup语法糖组件名支持
     vueSetupExtend(),
     // 提供https证书

@@ -64,7 +64,7 @@
         <basic0506 />
       </a-tab-pane>
 
-      <a-tab-pane key="basic0601" tab="基础教程0601">
+      <a-tab-pane key="basic0601" tab="基础教程0601 创建链接桩">
         <basic0601 />
       </a-tab-pane>
 
@@ -74,6 +74,10 @@
 
       <a-tab-pane key="senior02" tab="高级进阶 群组+vue">
         <senior02 />
+      </a-tab-pane>
+
+      <a-tab-pane key="senior03" tab="高级进阶 react在vue中使用 + XFlow">
+        <senior03 />
       </a-tab-pane>
     </a-tabs>
   </div>
@@ -102,6 +106,7 @@
 
   import senior01 from '../senior/index01/index.vue';
   import senior02 from '../senior/index02.vue';
+  import senior03 from '../senior/index03/index03.vue';
 
   export default {
     name: 'DemoTab',
@@ -127,6 +132,7 @@
       basic0601,
       senior01,
       senior02,
+      senior03,
     },
   };
 </script>

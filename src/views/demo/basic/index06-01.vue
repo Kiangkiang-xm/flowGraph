@@ -4,16 +4,12 @@
 
 <script lang="ts">
   import { Graph } from '@antv/x6';
-  import { onMounted, ref } from 'vue';
+  import { onMounted } from 'vue';
 
   export default {
     name: 'Index0601',
     setup() {
       let graph: Graph;
-      const padding = ref(20);
-      function onPaddingChanged(val: any) {
-        padding.value = val;
-      }
       onMounted(() => {
         graph = new Graph({
           container: document.getElementById('container') as HTMLElement,
@@ -59,11 +55,7 @@
           ],
         });
       });
-
-      return {
-        padding,
-        onPaddingChanged,
-      };
+      return {};
     },
   };
 </script>
