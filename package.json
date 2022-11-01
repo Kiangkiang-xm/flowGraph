@@ -88,6 +88,7 @@
     "vite-plugin-mock": "^2.9.6",
     "vite-plugin-pages": "^0.26.0",
     "vite-plugin-progress": "^0.0.5",
+    "vite-plugin-require-transform": "^1.0.4",
     "vite-plugin-restart": "^0.2.0",
     "vite-plugin-style-import": "^2.0.0",
     "vite-plugin-svg-icons": "^2.0.1",

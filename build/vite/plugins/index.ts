@@ -18,6 +18,8 @@ import { ConfigRestartPlugin } from './restart';
 import { ConfigProgressPlugin } from './progress';
 import { ConfigImageminPlugin } from './imagemin';
 import { ConfigUnocssPlugin } from './unocss';
+import requireTransform from 'vite-plugin-require-transform';
+
 // >= veaury@2.1.1
 import veauryVitePlugins from 'veaury/vite/index.js';
 export function createVitePlugins(isBuild: boolean) {
@@ -38,6 +40,10 @@ export function createVitePlugins(isBuild: boolean) {
     VitePluginCertificate({
       source: 'coding',
     }) as PluginOption,
+
+    requireTransform({
+      fileRegex: /.js$|.vue$/,
+    }),
   ];
 
   // 自动按需引入组件

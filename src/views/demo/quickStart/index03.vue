@@ -6,7 +6,8 @@
 <script lang="ts">
   import { defineComponent, onMounted } from 'vue';
   import { Graph } from '@antv/x6';
-  // const insertCss = require('insert-css');
+  const insertCss = require('insert-css');
+  // const insertCss = new URL('insert-css', import.meta.url).href;
 
   const data = {
     // 节点
@@ -243,31 +244,31 @@
   // 我们用 insert-css 演示引入自定义样式
   // 推荐将样式添加到自己的样式文件中
   // 若拷贝代码，别忘了 npm install insert-css
-  //   insertCss(`
-  //   .my-btn{
-  //     position: relative;
-  //     display: inline-block;
-  //     padding: 10px 20px;
-  //     color: #03e9f4;
-  //     font-size: 16px;
-  //     text-decoration: none;
-  //     text-transform: uppercase;
-  //     overflow: hidden;
-  //     transition: .3s;
-  //     margin-top: 40px;
-  //     letter-spacing: 3px
-  //   }
-  //
-  //   .my-btn:hover {
-  //     background: #03e9f4;
-  //     color: #fff;
-  //     border-radius: 5px;
-  //     box-shadow: 0 0 5px #03e9f4,
-  //                 0 0 25px #03e9f4,
-  //                 0 0 50px #03e9f4,
-  //                 0 0 100px #03e9f4;
-  //   }
-  // `);
+  insertCss(`
+    .my-btn{
+      position: relative;
+      display: inline-block;
+      padding: 10px 20px;
+      color: #03e9f4;
+      font-size: 16px;
+      text-decoration: none;
+      text-transform: uppercase;
+      overflow: hidden;
+      transition: .3s;
+      margin-top: 40px;
+      letter-spacing: 3px
+    }
+
+    .my-btn:hover {
+      background: #03e9f4;
+      color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 0 5px #03e9f4,
+                  0 0 25px #03e9f4,
+                  0 0 50px #03e9f4,
+                  0 0 100px #03e9f4;
+    }
+  `);
 
   export default defineComponent({
     setup() {

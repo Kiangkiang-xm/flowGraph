@@ -9977,6 +9977,16 @@ vite-plugin-require-transform@^1.0.3:
     "@babel/traverse" "^7.15.4"
     "@babel/types" "^7.15.6"
 
+vite-plugin-require-transform@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.npmmirror.com/vite-plugin-require-transform/-/vite-plugin-require-transform-1.0.4.tgz#5c9d61d4e87f4b699615eb7072187bebb3749451"
+  integrity sha512-YeIayGG2QYyl4mw8qdiqDqnjPRr2Cq7K2CFKCMX7mWuc3qZZP4eKdY3Exj3s3f7JblwlRmzmpSuWDTSN0BSofQ==
+  dependencies:
+    "@babel/generator" "^7.15.8"
+    "@babel/parser" "^7.15.8"
+    "@babel/traverse" "^7.15.4"
+    "@babel/types" "^7.15.6"
+
 vite-plugin-restart@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/vite-plugin-restart/-/vite-plugin-restart-0.2.0.tgz#d5b46d5f6398e0d54b6dcc269fb53b4fede00400"
