@@ -1,71 +1,72 @@
 <template>
   <div class="bar">
+    <!-- 清除画布所有节点 -->
     <a-tooltip placement="bottom">
       <template #title>
-        <span>清除 (Cmd + D)</span>
+        <span>清除 (Ctrl + D)</span>
       </template>
-      <a-button name="delete" @click="handleClick" class="item-space" size="small"> delete </a-button>
+      <a-button name="clearCells" @click="handleClick" class="item-space" size="small"> clearCells </a-button>
     </a-tooltip>
 
     <a-tooltip placement="bottom">
       <template #title>
-        <span>撤销 (Cmd + Z)</span>
+        <span>撤销 (Ctrl + Z)</span>
       </template>
       <a-button :disabled="!canUndo" name="undo" @click="handleClick" class="item-space" size="small"> undo </a-button>
     </a-tooltip>
 
     <a-tooltip placement="bottom">
       <template #title>
-        <span>Redo (Cmd + Shift + Z)</span>
+        <span>Redo (Ctrl + Shift + Z)</span>
       </template>
       <a-button :disabled="!canRedo" name="redo" @click="handleClick" class="item-space" size="small"> redo </a-button>
     </a-tooltip>
 
     <a-tooltip placement="bottom">
       <template #title>
-        <span>复制 (Cmd + Shift + Z)</span>
+        <span>复制 (Ctrl + Shift + Z)</span>
       </template>
       <a-button name="copy" @click="handleClick" class="item-space" size="small"> copy </a-button>
     </a-tooltip>
 
     <a-tooltip placement="bottom">
       <template #title>
-        <span>剪切 (Cmd + X)</span>
+        <span>剪切 (Ctrl + X)</span>
       </template>
       <a-button name="cut" @click="handleClick" class="item-space" size="small"> cut </a-button>
     </a-tooltip>
 
     <a-tooltip placement="bottom">
       <template #title>
-        <span>粘贴 (Cmd + V)</span>
+        <span>粘贴 (Ctrl + V)</span>
       </template>
       <a-button name="paste" @click="handleClick" class="item-space" size="small"> paste </a-button>
     </a-tooltip>
 
     <a-tooltip placement="bottom">
       <template #title>
-        <span>保存PNG (Cmd + S)</span>
+        <span>保存PNG (Ctrl + S)</span>
       </template>
       <a-button name="savePNG" @click="handleClick" class="item-space" size="small"> savePNG </a-button>
     </a-tooltip>
 
     <a-tooltip placement="bottom">
       <template #title>
-        <span>保存SVG (Cmd + S)</span>
+        <span>保存SVG (Ctrl + S)</span>
       </template>
       <a-button name="saveSVG" @click="handleClick" class="item-space" size="small"> saveSVG </a-button>
     </a-tooltip>
 
     <a-tooltip placement="bottom">
       <template #title>
-        <span>打印 (Cmd + P)</span>
+        <span>打印 (Ctrl + P)</span>
       </template>
       <a-button name="print" @click="handleClick" class="item-space" size="small"> print </a-button>
     </a-tooltip>
 
     <a-tooltip placement="bottom">
       <template #title>
-        <span>导出 (Cmd + P)</span>
+        <span>导出 (Ctrl + P)</span>
       </template>
       <a-button name="toJSON" @click="handleClick" class="item-space" size="small"> toJSON </a-button>
     </a-tooltip>
@@ -116,8 +117,10 @@
       };
 
       const handleClick = (event: Event) => {
+        console.log('aaa', event);
         const { graph } = FlowGraph;
         const name = (event.currentTarget as any).name!;
+        console.log('name:', name);
         switch (name) {
           case 'undo':
             graph.history.undo();
@@ -125,7 +128,7 @@
           case 'redo':
             graph.history.redo();
             break;
-          case 'delete':
+          case 'clearCells':
             graph.clearCells();
             break;
           case 'savePNG':
@@ -176,7 +179,9 @@
       history.on('change', () => {
         canUndo.value = history.canUndo();
         canRedo.value = history.canRedo();
+        console.log('触发了change，看看canUndo和canRedo的值：', canUndo.value, canRedo.value);
       });
+
       graph.bindKey('ctrl+z', () => {
         if (history.canUndo()) {
           history.undo();

@@ -1,6 +1,4 @@
-import { Graph, Addon, FunctionExt, Shape } from '@antv/x6';
-import './shape';
-import graphData from './data';
+import { Graph, Shape, Addon } from '@antv/x6';
 
 export default class FlowGraph {
   public static graph: Graph;
@@ -14,33 +12,33 @@ export default class FlowGraph {
       grid: {
         size: 10,
         visible: true,
-        type: 'doubleMesh',
+        type: 'doubleMesh', //表示网格是双网格
         args: [
           {
-            color: '#cccccc',
+            color: '#f0f0f0',
             thickness: 1,
           },
           {
-            color: '#5F95FF',
+            color: '#d3d3d3',
             thickness: 1,
             factor: 4,
           },
         ],
       },
-      // 画布平移
+      //画布滚动条
       scroller: {
-        enabled: true,
-        pageVisible: true,
-        pageBreak: true,
-        pannable: false,
+        enabled: true, //滚动条是否启动
+        pageVisible: true, //表示是否在滚动条中显示分页   （直接尝试一下就知道是什么了）
+        pageBreak: true, //用于控制是否在滚动时进行分页
+        pannable: false, //允许拖拽来移动画布
       },
+      // 滚动鼠标滚轮来缩放图形编辑器的视图
       mousewheel: {
         enabled: true,
         modifiers: ['ctrl', 'meta'],
         minScale: 0.5,
         maxScale: 2,
       },
-
       selecting: {
         enabled: true, //启用选择功能
         multiple: true, //是否允许同时选择多个图形元素
@@ -49,14 +47,16 @@ export default class FlowGraph {
         showNodeSelectionBox: true, //在选中的节点周围显示一个可视的选择框，帮助用户识别哪些元素已经被选中
       },
       connecting: {
-        anchor: 'center',
-        connectionPoint: 'anchor',
-        allowBlank: false,
-        highlight: true,
-        snap: true,
+        anchor: 'center', //定义了连接点（anchor）的位置，这里是 'center'，表示连接点位于节点的中心
+        connectionPoint: 'anchor', //定义了连接点的类型，这里同样使用 'anchor'，表示使用锚点作为连接点
+        allowBlank: false, //是否允许创建没有源节点或目标节点的边。这里设置为 false，意味着每条边都必须有明确的源节点和目标节点
+        highlight: true, //设置为 true 表示当鼠标悬停在连接点上时，会高亮显示连接点
+        snap: true, //设置为 true 表示连接点会吸附到最近的锚点，以便于用户连接
+        //createEdge方法用于创建新的边
         createEdge() {
           return new Shape.Edge({
             attrs: {
+              //attrs: 定义了边的样式，包括线的颜色（stroke）、线宽（strokeWidth）和目标标记（targetMarker）的样式和大小
               line: {
                 stroke: '#5F95FF',
                 strokeWidth: 1,
@@ -67,10 +67,12 @@ export default class FlowGraph {
               },
             },
             router: {
+              //router: 定义了边的路由方式，这里是 'manhattan'，意味着边将沿着水平或垂直方向绘制，类似于曼哈顿街道的布局
               name: 'manhattan',
             },
           });
         },
+        //validateConnection: 一个方法，用于验证两个图形元素之间的连接是否有效
         validateConnection({ sourceView, targetView, sourceMagnet, targetMagnet }) {
           if (sourceView === targetView) {
             return false;
@@ -84,50 +86,21 @@ export default class FlowGraph {
           return true;
         },
       },
-      highlighting: {
-        magnetAvailable: {
-          name: 'stroke',
-          args: {
-            padding: 4,
-            attrs: {
-              strokeWidth: 4,
-              // stroke: 'rgba(223,234,255)',
-              stroke: 'skyblue',
-            },
-          },
-        },
-      },
       snapline: true, //设置为 true，表示启用了对齐线（snapline）功能
-      history: true, //  --------------------------------------------------------------暂时没写----------
+      //enabled: true: 表示启用剪贴板功能，允许用户对图形元素执行复制、粘贴、剪切等操作。
       clipboard: {
         enabled: true,
       },
+      //enabled: true: 表示启用键盘快捷键功能，允许用户通过键盘操作来执行图形编辑器中的各种命令，提高操作效率。
       keyboard: {
         enabled: true,
-      },
-      embedding: {
-        enabled: true,
-        findParent({ node }) {
-          const bbox = node.getBBox();
-          return this.getNodes().filter((node) => {
-            // 只有 data.parent 为 true 的节点才是父节点
-            const data = node.getData<any>();
-            if (data && data.parent) {
-              const targetBBox = node.getBBox();
-              return bbox.isIntersectWithRect(targetBBox);
-            }
-            return false;
-          });
-        },
       },
     });
     this.initStencil();
     this.initShape();
-    this.initGraphShape();
-    this.initEvent();
     return this.graph;
   }
-  //搜索功能
+
   private static initStencil() {
     this.stencil = new Addon.Stencil({
       target: this.graph,
@@ -147,7 +120,7 @@ export default class FlowGraph {
             columns: 1,
             marginX: 60,
           },
-          graphHeight: 200,
+          graphHeight: 260,
         },
         {
           name: 'group',
@@ -168,6 +141,7 @@ export default class FlowGraph {
     console.log(this);
     const { graph } = this;
     console.log(graph);
+    //基础节点
     const r1 = graph.createNode({
       shape: 'flow-chart-rect',
       attrs: {
@@ -187,22 +161,12 @@ export default class FlowGraph {
           text: '流程节点',
         },
       },
-      //测试数据
-      data: {
-        attrsName: ['流程1', '流程2', '流程3'],
-        attrsValue: [],
-      },
     });
     const r3 = graph.createNode({
       shape: 'flow-chart-rect',
       width: 52,
       height: 52,
       angle: 45,
-      //测试数据
-      data: {
-        attrsName: ['判断1', '判断2', '判断3'],
-        attrsValue: [],
-      },
       attrs: {
         'edit-text': {
           style: {
@@ -265,17 +229,17 @@ export default class FlowGraph {
         },
       },
     });
-
+    //组合节点
     const c1 = graph.createNode({
       shape: 'flow-chart-image-rect',
     });
     const c2 = graph.createNode({
       shape: 'flow-chart-title-rect',
     });
-    // const c3 = graph.createNode({
-    //   shape: 'flow-chart-animate-text',
-    // });
-
+    const c3 = graph.createNode({
+      shape: 'flow-chart-animate-text',
+    });
+    //节点组
     const g1 = graph.createNode({
       shape: 'groupNode',
       attrs: {
@@ -288,81 +252,7 @@ export default class FlowGraph {
       },
     });
     this.stencil.load([r1, r2, r3, r4], 'basic');
-    this.stencil.load([c1, c2], 'combination');
+    this.stencil.load([c1, c2, c3], 'combination');
     this.stencil.load([g1], 'group');
-    // this.stencil.render();
-    // this.stencil.unload([c3],'combination')
-  }
-
-  // 初始化画布
-  private static initGraphShape() {
-    this.graph.fromJSON(graphData as any);
-  }
-
-  private static showPorts(ports: NodeListOf<SVGAElement>, show: boolean) {
-    for (let i = 0, len = ports.length; i < len; i = i + 1) {
-      ports[i].style.visibility = show ? 'visible' : 'hidden';
-    }
-  }
-
-  private static initEvent() {
-    const { graph } = this;
-    const container = document.getElementById('container')!;
-
-    // 右键编辑文本
-    graph.on('node:contextmenu', ({ cell, view }) => {
-      console.log(view.container);
-      const oldText = cell.attr('text/text') as string;
-      cell.attr('text/style/display', 'none');
-      const elem = view.container.querySelector('.x6-edit-text') as HTMLElement;
-      if (elem) {
-        elem.innerText = oldText;
-        elem.focus();
-      }
-      const onBlur = () => {
-        cell.attr('text/text', elem.innerText);
-      };
-      if (elem) {
-        elem.addEventListener('blur', () => {
-          onBlur();
-          elem.removeEventListener('blur', onBlur);
-        });
-      }
-    });
-    //鼠标移入显示端口
-    graph.on(
-      'node:mouseenter',
-      FunctionExt.debounce(() => {
-        const ports = container.querySelectorAll('.x6-port-body') as NodeListOf<SVGAElement>;
-        this.showPorts(ports, true);
-      }),
-      500,
-    );
-    //鼠标移出隐藏端口
-    graph.on('node:mouseleave', () => {
-      const ports = container.querySelectorAll('.x6-port-body') as NodeListOf<SVGAElement>;
-      this.showPorts(ports, false);
-    });
-
-    graph.on('node:collapse', ({ node, e }: any) => {
-      e.stopPropagation();
-      node.toggleCollapse();
-      const collapsed = node.isCollapsed();
-      const cells = node.getDescendants();
-      cells.forEach((n: any) => {
-        if (collapsed) {
-          n.hide();
-        } else {
-          n.show();
-        }
-      });
-    });
-    // backspace
-    graph.bindKey('delete', () => {
-      const cells = graph.getSelectedCells();
-      if (cells.length) {
-        graph.removeCells(cells);
-      }
-    });
   }
 }

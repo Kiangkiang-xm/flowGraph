@@ -4,6 +4,12 @@
       <a-tab-pane key="flow" tab="流程图">
         <flow />
       </a-tab-pane>
+      <a-tab-pane key="flowKiangkiang" tab="流程图kiangkiang">
+        <flowkiangkiang />
+      </a-tab-pane>
+      <a-tab-pane key="kiangkiang01" tab="kiangkiang01">
+        <kiangkiang01 />
+      </a-tab-pane>
       <a-tab-pane key="quickStart01" tab="快速上手01">
         <quick-start01 />
       </a-tab-pane>
@@ -89,6 +95,8 @@
 
 <script>
   import flow from '../flow/index.vue';
+  import flowkiangkiang from '../flowKiangkiang/index.vue';
+  import kiangkiang01 from '../quickStart/kiangkiang01.vue';
   import quickStart01 from '../quickStart/index01.vue';
   import quickStart02 from '../quickStart/index02.vue';
   import quickStart03 from '../quickStart/index03.vue';
@@ -117,6 +125,8 @@
     name: 'DemoTab',
     components: {
       flow,
+      flowkiangkiang,
+      kiangkiang01,
       quickStart01,
       quickStart02,
       quickStart03,

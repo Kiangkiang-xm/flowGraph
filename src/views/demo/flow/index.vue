@@ -12,6 +12,7 @@
     <div class="content">
       <!--左侧工具栏-->
       <div id="stencil" class="sider"></div>
+
       <div class="panel">
         <!--流程图工具栏-->
         <div class="toolbar">
@@ -20,6 +21,7 @@
         <!--流程图画板-->
         <div id="container" class="x6-graph"></div>
       </div>
+
       <!--右侧工具栏-->
       <div class="config">
         <config-panel v-if="isReady" />
